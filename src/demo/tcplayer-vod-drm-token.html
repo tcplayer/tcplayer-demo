@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+  <title>腾讯云视频点播示例</title>
+  <!-- 引入播放器 css 文件 -->
+  <link href="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.min.css" rel="stylesheet">
+  <!--<script src="//imgcache.qq.com/open/qcloud/video/tcplayer/libs/vconsole.min.3.3.0.js"></script>-->
+  <!-- 如需在IE8、9浏览器中初始化播放器，浏览器需支持Flash并在页面中引入 -->
+  <!--[if lt IE 9]>
+  <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/ie8/videojs-ie8.js"></script>
+  <![endif]-->
+  <!-- 如果需要在 Chrome Firefox 等现代浏览器中通过H5播放hls Dash，需要引入 hls.js dash.js -->
+  <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/libs/hls.min.0.12.4.js"></script>
+  <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/libs/dash.all.min.2.9.3.js"></script>
+  <!-- 引入播放器 js 文件 -->
+  <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.min.js"></script>
+  <!-- 示例 CSS 样式可自行删除 -->
+  <style>
+    html,body{
+      margin: 0;
+      padding: 0;
+    }
+    .tcplayer {
+      margin: 0 auto;
+    }
+    @media screen and (max-width: 640px) {
+      #player-container-id {
+        width: 100%;
+        height: 270px;
+      }
+    }
+    /* 设置logo在高分屏的显示样式 */
+    @media only screen and (min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 2) {
+      .tcp-logo-img {
+        width: 50%;
+      }
+    }
+    .form-control{
+      border-radius: 0px;
+      width: 300px;
+      height: 30px;
+      display: block;
+      margin: 10px;
+    }
+    button{
+      margin: 0 10px;
+    }
+  </style>
+</head>
+<body>
+
+<input class="form-control" type="text" placeholder="appID" id="appID" value="1256468886">
+<input class="form-control" type="text" placeholder="fileID" id="fileID" value="5285890787511552106">
+<input class="form-control" type="text" placeholder="playDefinition" id="playDefinition" value="20">
+<input class="form-control" type="text" placeholder="t" id="t" value="">
+<input class="form-control" type="text" placeholder="us" id="us" value="">
+<input class="form-control" type="text" placeholder="sign" id="sign" value="">
+<input class="form-control" type="text" placeholder="certificateUri" id="certificateUri">
+<input class="form-control" type="text" placeholder="token" id="token">
+<button type="button" id="btn-get-token">Step 1 Get token</button>
+<button type="button" id="btn-load-video">Step 2 Load Video</button>
+<!-- 设置播放器容器 -->
+<video id="player-container-id" preload="auto" width="640" height="360" playsinline webkit-playsinline>
+</video>
+<!--
+注意事项：
+* 播放器容器必须为 video 标签
+* player-container-id 为播放器容器的ID，可自行设置
+* 播放器区域的尺寸请按需设置，建议通过 css 进行设置，通过css可实现容器自适应等效果
+* playsinline webkit-playsinline 这几个属性是为了在标准移动端浏览器不劫持视频播放的情况下实现行内播放，此处仅作示例，请按需使用
+* 设置 x5-playsinline 属性会使用 X5 UI 的播放器
+-->
+<script>
+  console.log(navigator.userAgent, TCPlayer.browser, window.navigator.requestMediaKeySystemAccess);
+
+  var widevineOptions = [
+    {
+      // initDataTypes: ['keyids', 'webm'],
+      initDataTypes: ['cenc', 'webm', 'mp4'],
+      audioCapabilities: [
+        { contentType: 'audio/mp4; codecs="mp4a.40.2"'},
+        { contentType: 'audio/webm; codecs="opus"' },
+        { contentType: 'audio/webm; codecs="vorbis"' }
+      ],
+      videoCapabilities: [
+        { contentType: 'video/mp4; codecs="avc1.42c01e"'},
+        { contentType: 'video/webm; codecs="vp9"' , robustness: 'foo'},
+        { contentType: 'video/webm; codecs="vp8"' , robustness: 'bar'}
+      ]
+    }
+  ];
+  try {
+    navigator.requestMediaKeySystemAccess('com.widevine.alpha', widevineOptions).then(function (keySystemAccess) {
+      console.log(keySystemAccess.getConfiguration())
+    }).catch(function (e) {
+      console.log(e);
+      return false;
+    });
+  } catch (e) {
+    console.log(e);
+  }
+  var t,
+      us,
+      sign;
+
+  var player = TCPlayer('player-container-id', {
+    Html5: {
+      nativeTextTracks: false
+    },
+    plugins: {
+      DRM: true,
+      ProgressMarker: {},
+    }
+  });
+  var btnGetToken = document.querySelector('#btn-get-token');
+  btnGetToken.addEventListener('click', function () {
+    var request = new XMLHttpRequest();
+    request.addEventListener('load', function (event) {
+      document.querySelector('#token').value = event.target.response;
+    }, false);
+    request.open('GET', 'https://demo.vod2.myqcloud.com/drm/gettoken?fileId='+document.querySelector('#fileID').value+'&appId='+document.querySelector('#appID').value, true);
+    request.send();
+  });
+
+  var btnLoadVideo = document.querySelector('#btn-load-video');
+  btnLoadVideo.addEventListener('click', function () {
+    if (!document.querySelector('#token').value) {
+      return
+    }
+
+    t = document.querySelector('#t').value;
+    us = document.querySelector('#us').value;
+    sign = document.querySelector('#sign').value;
+
+    player.DRM().setOptions({
+      token: document.querySelector('#token').value,
+      certificateUri: document.querySelector('#certificateUri').value || 'https://5000.drm.myqcloud.com/huaxida_test/fairplay.cer',
+    });
+
+    player.loadVideoByID({
+      fileID: document.querySelector('#fileID').value || '15517827183920333646', // 请传入需要播放的视频filID 必须
+      appID:  document.querySelector('#appID').value || '1253039488' // 请传入点播账号的appID 必须
+      ,playDefinition: document.querySelector('#playDefinition').value ||  '10'
+      ,t: t
+      ,us: us
+      ,sign: sign
+    })
+  });
+
+</script>
+
+</body>
+</html>

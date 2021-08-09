@@ -1,0 +1,84 @@
+.clg-logo {
+  width: 112px;
+  height: 28px;
+  background-image: url(./image.svg);
+  background-position: 1.47% 28.18%;
+  background-size: 160.71428571428572% 492.8571428571429%;
+  background-repeat: no-repeat;
+}
+
+.tea-nav__logo {
+  margin-right: 20px;
+}
+
+.tea-nav__logo:before {
+  display: none;
+}
+
+.tab-demo {
+  position: relative;
+  height: 100%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+.underline {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 3px;
+  background: #fff;
+}
+
+.tab-doc {
+  height: 100%;
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+}
+.tea-player-wrapper {
+  display: flex;
+}
+
+#player-container-id {
+  width: 100%;
+  height: 360px;
+}
+
+.tea-code {
+  position: relative;
+  /* width: 100%; */
+  width: calc(100% - 640px);
+  background: #fff;
+}
+.tea-code .tea-icon-copy {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 20px;
+  background-position: center;
+  cursor: pointer;
+}
+.tea-code-pre {
+  padding: 10px;
+  box-sizing: border-box;
+  font-size: 12px;
+  height: 360px;
+  max-width: 618px;
+  overflow: scroll;
+}
+
+.iframe-wrapper {
+  display: flex;
+}
+.iframe-wrapper .tea-card {
+  width: 640px;
+  margin: 0 20px 0 0;
+}

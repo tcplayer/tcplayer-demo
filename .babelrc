@@ -1,0 +1,15 @@
+// .babelrc
+{
+  "plugins": [[
+    "@tencent/babel-plugin-tea-component",
+    {},
+    "tea component"
+  ], [
+    "@tencent/babel-plugin-tea-component",
+    {
+      "libraryName": "@tencent/tea-chart",
+      "actualLib": "@tencent/tea-chart/lib"
+    },
+    "tea chart"
+  ]]
+}

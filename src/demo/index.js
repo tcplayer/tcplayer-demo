@@ -30,6 +30,8 @@ import key from './tcplayer-vod-key.html';
 import trial from './tcplayer-vod-trial.html';
 import customError from './tcplayer-vod-custom-error.html';
 
+console.log('key', key);
+
 
 export const source = {
   base,

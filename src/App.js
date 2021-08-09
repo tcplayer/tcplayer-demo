@@ -42,7 +42,7 @@ function App() {
   }, [value]);
 
   return (
-    <Layout>
+    <Layout style={{ minHeight: '100vh' }}>
       <Header>
         <NavMenu
           left={

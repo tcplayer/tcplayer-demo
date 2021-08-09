@@ -18,7 +18,6 @@ import { docs } from './docs';
 
 const { Header, Body, Content } = Layout;
 
-
 function clearIframe(id){
   var el = document.getElementById(id),
   iframe = el.contentWindow;
@@ -76,6 +75,10 @@ function App() {
                 <Segment
                   value={value.toString()}
                   onChange={value => {
+                    if (value === 'more') {
+                      window.open("https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo", "_blank");
+                      return false;
+                    }
                     clearIframe('previewIframe');
                     setValue(value)
                   }}
@@ -103,6 +106,7 @@ function App() {
                     // { text: "弹幕", value: "subtitles" },
                     { text: "事件回调", value: "event" },
                     { text: "动态水印", value: "dynamicWatermark" },
+                    { text: "更多", value: "more" },
                   ]}
                 />
               </Form.Item>

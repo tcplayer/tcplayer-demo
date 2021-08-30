@@ -1,7 +1,7 @@
 import "@tencent/tea-component/dist/tea.css";
 import "./App.css";
 import React, { useState, useEffect} from "react";
-import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import { monaco } from 'react-monaco-editor';
 import {
   Layout,
   NavMenu,
@@ -11,8 +11,9 @@ import {
   Segment,
   Card,
   Copy,
-  MonacoEditor,
 } from "@tencent/tea-component";
+import MonacoEditor from 'react-monaco-editor';
+
 import { source } from './demo/index.js';
 import { docs } from './docs';
 
@@ -131,7 +132,7 @@ function App() {
                       monaco={monaco}
                       height={360}
                       value={code}
-                      language="html"
+                      language="javascript"
                       onChange={val => setCode(val)}
                       defaultValue={code}
                     />

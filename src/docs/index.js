@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Row, Col, Text } from "@tencent/tea-component";
+import { List, Row, Col, Table } from "@tencent/tea-component";
 
 function Title({ children }) {
   return <h3 style={{ margin: "10px 0" }}>{children}</h3>;
@@ -167,16 +167,61 @@ const fileStatistic = (() => {
 })();
 
 
+
+const records = [
+  { name: '-1', description: 'No video has been loaded.	', text: '播放器没有检测到可用的视频地址。' },
+  { name: '-2', description: 'Could not download the video.', text: '获取视频数据超时。' },
+  { name: '1', description: 'You aborted the media playback.', text: '视频数据加载过程中被中断。' },
+  { name: '2', description: 'A network error caused the media download to fail part-way.', text: '由于网络问题造成加载视频失败。' },
+  { name: '3', description: 'The media playback was aborted due to a corruption problem or because the media used features your browser did not support.', text: '视频解码时发生错误。' },
+  { name: '4', description: 'The media could not be loaded, either because the server or network failed or because the format is not supported.', text: '视频因格式不支持或者服务器或网络的问题无法加载。' },
+  { name: '5', description: 'The media is encrypted and we do not have the keys to decrypt it.', text: '视频解密时发生错误。' },
+  { name: '10', description: 'Request timed out.', text: '点播媒体数据接口请求超时。' },
+  { name: '11', description: 'Server is not respond.', text: '点播媒体数据接口没有返回数据。' },
+  { name: '12', description: 'Server respond error data.', text: '	点播媒体数据接口返回异常数据。' },
+  { name: '13', description: 'No video transcoding information found.', text: '播放器没有检测到可以在当前播放器播放的视频数据，请对该视频进行转码操作。' },
+  { name: '14', description: 'A network error caused the media download to fail part-way.', text: '网络错误导致视频下载中途失败。' },
+  { name: '15', description: 'The media playback was aborted due to a corruption problem or because the media used features your browser did not support.', text: '由于视频文件损坏或是该视频使用了您的浏览器不支持的功能，播放终止。' },
+  { name: '16', description: 'The media playback was aborted due to a corruption problem or because the media used features your browser did not support.', text: '由于视频文件损坏或是该视频使用了您的浏览器不支持的功能，播放终止。' },
+  { name: '17', description: 'Rise an internal exception when playing HLS.', text: '播放 HLS 时出现内部异常。' },
+  { name: '500', description: 'Server failed.', text: '媒体服务器错误。' },
+  { name: '1001', description: 'The media file does not exist. Please check if the fileID is correct.', text: '媒体文件不存在，请检查 fileID 是否正确。' },
+  { name: '1002', description: 'The trial duration is illegal. The trial duration must be within the video duration.', text: '试看时长不合法，试看时长要在视频时长范围内。' },
+  { name: '1003', description: 'Param pcfg is not unique.', text: 'pcfg 不唯一。' },
+  { name: '1004', description: 'The license has expired. Please check whether the expiration time setting is reasonable.', text: 'license 过期，请检查过期时间设置是否合理。' },
+  { name: '1005', description: 'Did not find an adaptive stream that can be played.', text: '没有找到可以播放的自适应码流。' },
+  { name: '1006', description: 'Invalid request format, please check the request format.', text: '请求格式不合法，请检查请求格式。' },
+  { name: '1007', description: 'AppID is not exist, Please check if the AppID is correct.', text: 'AppID 不存在，请检查 AppID 是否正确。' },
+  { name: '1008', description: 'Without anti-leech information.', text: '	没带防盗链检测。' },
+  { name: '1009', description: 'psign check failed.', text: '播放参数 psign 校验失败。' },
+  { name: '1010', description: 'Other errors.', text: '其他错误。' },
+  { name: '2001', description: 'Internal error.', text: '内部错误。' },
+  { name: '10008', description: 'The media file does not exist. Please check if the fileID is correct.', text: '媒体文件不存在，请检查 fileID 是否正确。' },
+];
+
 const customError = (() => {
   return <Row>
     <Col>
       <Title>自定义提示文案说明</Title>
       <List type="bullet">
-        <List.Item>当您想要自定义提示文案时，可以通过初始化参数 languages 设置指定的提示文案，详见示例代码</List.Item>
+        <List.Item>当您想要自定义提示文案时，可以通过初始化参数 languages 设置指定的提示文案，详见以下列表</List.Item>
+        <Table
+          records={records}
+          recordKey="name"
+          columns={[
+            { key: "name", header: "错误码", width: '20%'},
+            { key: "description", header: "描述" },
+            { key: "text", header: "对应文案" },
+          ]}
+        />
       </List>
     </Col>
   </Row>
 })();
+
+
+
+
 
 
 export const docs = {

@@ -1,7 +1,7 @@
 import "@tencent/tea-component/dist/tea.css";
 import "./App.css";
 import React, { useState, useEffect} from "react";
-import { monaco } from 'react-monaco-editor';
+import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import {
   Layout,
   NavMenu,
@@ -11,8 +11,8 @@ import {
   Segment,
   Card,
   Copy,
+  MonacoEditor,
 } from "@tencent/tea-component";
-import MonacoEditor from 'react-monaco-editor';
 
 import { source } from './demo/index.js';
 import { docs } from './docs';
@@ -72,6 +72,7 @@ function App() {
                   {/* <Radio name="tcplayerlite">TCPlayer Lite</Radio> */}
                 </RadioGroup>
               </Form.Item>
+
               <Form.Item label="播放器功能">
                 <Segment
                   value={value.toString()}

@@ -1,6 +1,8 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 
 module.exports = function override(config, env) {
+  console.log('config', config.plugins[0].options);
+  config.output.publicPath = './';
   config.module.rules.push({
     test: /\.html$/i,
     loader: 'html-loader',

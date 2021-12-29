@@ -24,11 +24,25 @@ const continuePlay = (() => {
     <Col>
       <Title>续播说明</Title>
       <List type="bullet">
-        <List.Item>必须通过 fileID 和 appID 播放经过腾讯云转码后的视频，才能使用该功能。</List.Item>
+        <List.Item>仅使用腾讯云点播进行转码后的视频才可使用该功能，通过传入云点播账户 AppID 和云点播文件标识 FileID 进行播放。</List.Item>
         <List.Item>该功能通过 localStorage 存储播放时间点，浏览器需支持该特性。</List.Item>
         <List.Item>在浏览器劫持视频播放的情况下，该功能无法使用。</List.Item>
-        <List.Item>该功能不是多端多浏览器互通的，例如在 PC 浏览器上没看完，不能在移动端浏览器上续播或者在 PC 上另一个浏览器续播，需额外的接口，可以自行开发。</List.Item>
+        <List.Item>该功能不支持多端多浏览器互通，例如在某 PC 浏览器上观看后，无法在移动端浏览器或 PC 上另一个浏览器进行断点续播，若需相关能力可在本功能基础上自主开发额外的接口。</List.Item>
         {/* <List.Item>开启成功后将会看到的效果如下图：<br /><br /><img src="https://mc.qcloudimg.com/static/img/e155be329a6fec959e1ad6b361add390/image.png" /></List.Item> */}
+      </List>
+    </Col>
+  </Row>
+})();
+
+const dynamicWatermark = (() => {
+  return <Row>
+    <Col>
+      <Title>动态水印说明</Title>
+      <List type="bullet">
+        <List.Item>动态水印移动范围为实际视频显示区域，如果视频自带黑边，播放器无法进行规避。</List.Item>
+        <List.Item>在使用动态水印功能时，播放器对象的引用不能暴露到全局环境，否则动态水印可以轻易去除。</List.Item>
+        <List.Item>动态水印不适合移动端场景，特别是劫持播放的场景。</List.Item>
+        <List.Item>可以通过屏蔽全屏按钮，规避部分全屏后被劫持导致水印失效的情况。</List.Item>
       </List>
     </Col>
   </Row>
@@ -104,11 +118,9 @@ const qualityApi = (() => {
     <Col>
       <Title>自适应码流播放说明</Title>
       <List type="bullet">
-        <List.Item>HLS 规范的 Master Playlist 可以根据网络速度自适应码率播放，在视频下载过程中，如果网络速度满足下载高码率的 TS 分片时，播放器将切换播放高码率的 TS 分片，反之播放低码率的 TS 分片。移动端和桌面端大部分浏览器都支持该特性。
-</List.Item>
-        <List.Item>自适应码率播放全端都默认采用自动切换逻辑。</List.Item>
+        <List.Item>播放HLS自适应码流文件时，播放清晰度将默认采用自动切换逻辑，此时播放器将根据当前带宽，动态选择最合适的码率播放。</List.Item>
+        <List.Item>HLS 规范的 Master Playlist 可以根据网络速度自适应码率播放，在视频下载过程中，如果网络速度满足下载高码率的 TS 分片时，播放器将切换播放高码率的 TS 分片，反之播放低码率的 TS 分片。移动端和桌面端大部分浏览器都支持该特性。</List.Item>
         <List.Item>由于部分浏览器没有提供相应的接口和不支持 MSE，这些浏览器无法手动选择特定的清晰度，也不会显示切换清晰度的选项。</List.Item>
-        <List.Item>Flash 播放模式下不支持手动选择特定的码率。</List.Item>
       </List>
     </Col>
   </Row>
@@ -120,7 +132,8 @@ const levelSwitchTips = (() => {
     <Col>
       <Title>清晰度切换提示说明</Title>
       <List type="bullet">
-        <List.Item>在播放器初始化时可开启清晰度切换提示开关，详见代码示例。</List.Item>
+        <List.Item>可在播放器初始化时开启清晰度切换提示开关，详见代码示例。</List.Item>
+        <List.Item>由于部分浏览器没有提供相应的接口和不支持 MSE，这些浏览器无法手动选择特定的清晰度，也不会显示切换清晰度的选项。</List.Item>
       </List>
     </Col>
   </Row>
@@ -164,6 +177,20 @@ const fileStatistic = (() => {
       </List>
     </Col>
   </Row>
+})();
+
+const subtitles = (() => {
+  return <Row>
+  <Col>
+    <Title>字幕说明</Title>
+    <List type="bullet">
+      <List.Item>添加字幕可以在浏览器端如示例代码所示导入，对自适应码流也可以从云端添加字幕：即从云点播控制台导入字幕或调用 <a href="https://cloud.tencent.com/document/product/266/54235" target="_blank" rel="noreferrer">云 API 关联字幕</a>。</List.Item>
+      <List.Item>云端导入字幕后，播放器播放已关联字幕的文件时会自动加载并处理字幕文件，无需任何配置。</List.Item>
+      <List.Item>从控制台导入字幕路径：登录 <a href="https://console.cloud.tencent.com/vod" target="_target" rel="noreferrer">云点播控制台</a>，单击左侧导航栏的媒资管理，选择目标文件，进入管理即可添加字幕。 </List.Item>
+      <List.Item>在不支持 MSE 的浏览器环境，不支持通过控制台导入字幕的方式。</List.Item>
+    </List>
+  </Col>
+</Row>
 })();
 
 
@@ -238,4 +265,6 @@ export const docs = {
   trial,
   fileStatistic,
   customError,
+  subtitles,
+  dynamicWatermark,
 } 

@@ -29,6 +29,7 @@ import levelSwitchTips from './tcplayer-vod-level-switch-tips.html';
 import key from './tcplayer-vod-key.html';
 import trial from './tcplayer-vod-trial.html';
 import customError from './tcplayer-vod-custom-error.html';
+import poster from './tcplayer-vod-poster.html';
 
 export const source = {
   base,
@@ -53,6 +54,7 @@ export const source = {
   key,
   trial,
   customError,
+  poster,
   // logo,
   // masterPlayList,
   // imagePatch,

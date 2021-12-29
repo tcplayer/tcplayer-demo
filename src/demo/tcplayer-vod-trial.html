@@ -24,6 +24,73 @@
       width: 640px;
       height: 360px;
     }
+
+    .tip-node {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      bottom: 5em;
+      left: 1em;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 4px;
+      padding: 5px 10px;
+
+    }
+
+    .tip-icon-close {
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      margin-left: 10px;
+      background-image: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-close.png);
+      background-size: cover;
+      cursor: pointer;
+    }
+    
+    .page-node {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-content {
+      text-align: center;
+    }
+
+    .page-content a{
+      display: flex;
+      width: 120px;
+      height: 28px;
+      border-radius: 14px;
+      color: #663d00;
+      background-image: linear-gradient(90deg,#ffdf89 0,#f2ca5b 100%);
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      margin: 0 auto;
+    }
+
+    .page-content #replay-btn::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+      background: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-replay.png);
+      background-size: contain;
+    }
+
+    .page-content #replay-btn {
+      margin: 10px auto 0;
+    }
+
+
   </style>
 </head>
 <body>
@@ -43,7 +110,45 @@
     fileID: "3701925924406245944",
     appID: "1500006438",
     psign: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTUwMDAwNjQzOCwiZmlsZUlkIjoiMzcwMTkyNTkyNDQwNjI0NTk0NCIsImN1cnJlbnRUaW1lU3RhbXAiOjE2MzE3ODEyMzYsImV4cGlyZVRpbWVTdGFtcCI6MTkxNTg2NDQxNCwicGNmZyI6ImJhc2ljRHJtUHJlc2V0IiwidXJsQWNjZXNzSW5mbyI6eyJleHBlciI6MzAsInQiOiIxOTE1ODY0NDE0In19.F9gD5SidAoQPH4rDz4dr9-Z6DpoojOkHX_23kZPJ72A",
+    autoplay: false,
   });
+
+  player.one("playing", function() {
+    // 生成试看只有30s的提示
+    var tipNode = document.createElement("div");
+    tipNode.innerHTML = "可试看30秒，开通 VIP 观看完整视频";
+    tipNode.className = "tip-node";
+
+    var tipIconClose = document.createElement("i");
+    tipIconClose.className = "tip-icon-close";
+    tipIconClose.onclick = function() {
+      tipNode.remove();
+    }
+  
+    tipNode.appendChild(tipIconClose);
+    player.el_.appendChild(tipNode);
+  });
+
+
+  player.on("ended", function() {
+    var pageNode = document.createElement("div");
+      pageNode.className = "page-node";
+
+      pageNode.innerHTML = `<div class="page-content">
+          <p>试看结束，VIP会员可观看完整视频</p>
+          <a href="https://cloud.tencent.com/document/product/881/30818" target="_blank">开通VIP会员</a>
+          <button id="replay-btn">重新试看</button>
+        </div>
+      `;
+      
+      player.el_.appendChild(pageNode);
+
+      document.querySelector('#replay-btn').onclick = function() {
+        player.play();
+        pageNode.remove();
+      };
+  });
+
 </script>
 </body>
 </html>

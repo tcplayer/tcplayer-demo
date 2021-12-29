@@ -37,7 +37,7 @@
     appID: "1256993030"
   });
   player.on("ready", function() {
-    var subTrack = player.addRemoteTextTrack({src: "//1256993030.vod2.myqcloud.com/d520582dvodtransgzp1256993030/7732bd367447398157015849771/imageSprite/1559273486.vtt", kind:"subtitles" , srclang:"zh-cn", label:"中文", default:"true"}, true);
+    var subTrack = player.addRemoteTextTrack({src: "//tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/vtt/%E4%B8%AD%E6%96%87.vtt", kind:"subtitles" , srclang:"zh-cn", label:"中文", default:"true"}, true);
     subTrack.addEventListener("load", function(){
       console.log("subTrack load", subTrack.track);
     });
@@ -48,6 +48,8 @@
       var currentCue = this.activeCues[0];
       console.log("cuechange", this);
     });
+
+    var subTrack = player.addRemoteTextTrack({src: "//tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/vtt/%E8%8B%B1%E6%96%87.vtt", kind:"subtitles" , srclang:"en", label:"英文", default:"false"}, true);
   });
 </script>
 </body>

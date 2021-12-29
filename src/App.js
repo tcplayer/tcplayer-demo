@@ -6,12 +6,12 @@ import {
   Layout,
   NavMenu,
   Form,
-  RadioGroup,
-  Radio,
   Segment,
   Card,
   Copy,
   MonacoEditor,
+  Text,
+  Button,
 } from "@tencent/tea-component";
 
 import { source } from './demo/index.js';
@@ -22,24 +22,23 @@ const { Header, Body, Content } = Layout;
 function clearIframe(id){
   var el = document.getElementById(id),
   iframe = el.contentWindow;
-  if(el){
+  if(el) {
+    // eslint-disable-next-line no-script-url
     el.src = 'javascript:void(0)';
-  try{
+  try {
     iframe.document.write('');  
     iframe.document.clear();
-  }catch(e){};
-  // document.body.removeChild(el);
+  } catch(e){
+
+  };
 }} 
 
 function App() {
-  const [playerType, setPlayerType] = useState('tcplayer');
-  const [value, setValue] = useState('continuePlay');
+  const [value, setValue] = useState('vttThumbnail');
   const [code, setCode] = useState(source[value] || '');
-  const previewCode = `${'javascript: ' + '\''}${code}'`;
 
   useEffect(() => {
     setCode(source[value]);
-    console.log('docs[value]', docs[value]);
   }, [value]);
 
   return (
@@ -51,111 +50,128 @@ function App() {
               <NavMenu.Item type="logo">
                 <div className="clg-logo"></div>
               </NavMenu.Item>
-              <div className="tab-demo">
-                <span>功能展示</span>
-                <span className="underline"></span>
-              </div>
-              {/* <div className="tab-doc">
-                <a href="" target="_blank">帮助文档</a>
-              </div> */}
             </>
           }
         />
       </Header>
       <Body>
+        <section className="top-area">
+          <Text className="top-title">Web端超级播放器体验</Text>
+          <div className="top-btns">
+            <Button type="primary">
+              <a href="https://cloud.tencent.com/document/product/1449/57088" target="_blank" rel="noreferrer">立即使用</a>
+            </Button>
+            <Button>
+              <a href="https://cloud.tencent.com/product/player" target="_blank" rel="noreferrer">播放器SDK</a>
+            </Button>
+          </div>
+          <Card className="card card-notice">
+            <img src="https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-notice.png" alt=""/>
+            <Text>
+              为了获取更好的产品功能及播放性能体验，建议结合腾讯 
+              <a href="https://cloud.tencent.com/document/product/266/45543" target="_blank" rel="noreferrer">云点播</a>
+              和
+              <a href="https://cloud.tencent.com/product/css" target="_blank" rel="noreferrer">云直播</a>
+              使用。
+            </Text>
+          </Card>
+        </section>
+        
         <Content>
           <Content.Body>
-            <Form>
-              <Form.Item label="播放器类型">
-                <RadioGroup value={playerType} onChange={setPlayerType}>
-                  <Radio name="tcplayer">超级播放器</Radio>
-                  {/* <Radio name="tcplayerlite">TCPlayer Lite</Radio> */}
-                </RadioGroup>
-              </Form.Item>
-
-              <Form.Item label="播放器功能">
-                <Segment
-                  value={value.toString()}
-                  onChange={value => {
-                    if (value === 'more') {
-                      window.open("https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo", "_blank");
-                      return false;
-                    }
-                    clearIframe('previewIframe');
-                    setValue(value)
-                  }}
-                  options={[
-                    { text: "续播", value: "continuePlay" },
-                    { text: "CSS设置尺寸", value: "sizeAdaptive" },
-                    { text: "缩略图预览-服务端生成", value: "vttThumbnail" },
-                    { text: "缩略图预览-传入缩略图与VTT文件", value: "vttThumbnailSrc" },
-                    { text: "切换文件播放", value: "changeFile" },
-                    { text: "镜像", value: "mirror" },
-                    { text: "进度条标记", value: "progressMarker" },
-                    { text: "HLS 自适应码流播放", value: "qualityApi" },
-                    // { text: "HLS 自适应码流播放", value: "hlsMasterplaylist" },
-                    { text: "清晰度切换提示", value: "levelSwitchTips" },
-                    // { text: "Referer 防盗链", value: "levelSwitchTips" },
-                    { text: "Key 防盗链", value: "key" },
-                    { text: "试看功能", value: "trial" },
-                    // { text: "HLS 加密播放", value: "levelSwitchTips" },
-                    { text: "DASH 播放", value: "dash" },
-                    { text: "统计信息", value: "fileStatistic" },
-                    { text: "自定义提示文案", value: "customError" },
-                    { text: "多语言", value: "language" },
-                    { text: "多实例", value: "multi" },
-                    { text: "字幕", value: "subtitles" },
-                    // { text: "弹幕", value: "subtitles" },
-                    { text: "事件回调", value: "event" },
-                    { text: "动态水印", value: "dynamicWatermark" },
-                    { text: "更多", value: "more" },
-                  ]}
-                />
-              </Form.Item>
-
-              <Form.Item label=" ">
-                <div className="iframe-wrapper">
-                  <Card>
-                    <iframe
-                      id="previewIframe"
-                      title="previewIframe"
-                      src={previewCode}
-                      frameBorder="0"
-                      width="100%"
-                      height="360px"
-                      allowFullScreen={true}
-                    ></iframe>
-                  </Card>
-                  <section className="tea-code">
-                    <Copy text={code}/>
-                    <MonacoEditor
-                      className="tea-code-pre"
-                      monaco={monaco}
-                      height={360}
-                      value={code}
-                      language="javascript"
-                      onChange={val => setCode(val)}
-                      defaultValue={code}
-                    />
-                  </section>
-                </div>
-              </Form.Item>
-              {
-                docs[value] ?
-                <Form.Item label=" " >
-                  <Card>
-                    <Card.Body>
-                      <div>{docs[value]}</div>
-                      {/* <div dangerouslySetInnerHTML={{__html: marked(docs[value])}} /> */}
-                    </Card.Body>
-                  </Card>                
+            <Card className="card card-player-function">
+              <Form>
+                <Form.Item label="播放器功能">
+                  <Segment
+                    value={value.toString()}
+                    onChange={value => {
+                      if (value === 'more') {
+                        return false;
+                      }
+                      clearIframe('previewIframe');
+                      setValue(value)
+                    }}
+                    options={[
+                      { text: "缩略图预览-云端生成文件", value: "vttThumbnail" },
+                      { text: "缩略图预览-手动传入文件", value: "vttThumbnailSrc"},
+                      { text: "进度条标记", value: "progressMarker" },
+                      { text: "自适应码流", value: "qualityApi" },
+                      { text: "DASH 播放", value: "dash" },
+                      { text: "清晰度切换提示", value: "levelSwitchTips" },
+                      { text: "Key 防盗链", value: "key" },
+                      { text: "播放器尺寸", value: "sizeAdaptive" },
+                      { text: "事件回调", value: "event" },
+                      { text: "字幕", value: "subtitles" },
+                      { text: "断点续播", value: "continuePlay" },
+                      { text: "视频切换", value: "changeFile" },
+                      { text: "试看功能", value: "trial" },
+                      { text: "视频镜像", value: "mirror" },
+                      { text: "动态水印", value: "dynamicWatermark" },
+                      { text: "提示文案", value: "customError" },
+                      { text: "贴片广告", value: "poster" },
+                      { text: "统计信息", value: "fileStatistic" },
+                      { text: "多语言", value: "language" },
+                      { text: "多实例", value: "multi" },
+                      { text: (
+                        <>
+                          <a href="https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo" target="_blank" rel="noreferrer">更多</a>
+                        </>
+                      ), value: "more" },
+                      // { text: "HLS 自适应码流播放", value: "hlsMasterplaylist" },
+                      // { text: "Referer 防盗链", value: "levelSwitchTips" },
+                      // { text: "HLS 加密播放", value: "levelSwitchTips" },
+                      // { text: "弹幕", value: "subtitles" },                      
+                    ]}
+                  />
                 </Form.Item>
-                : null
-              }
-              
-            </Form>          
-          </Content.Body>
+              </Form>
+            </Card>
 
+            <Card className="card card-preview">
+              <Form>
+                <Form.Item label=" ">
+                  <div className="iframe-wrapper">
+                    <Card>
+                      <iframe
+                        id="previewIframe"
+                        title="previewIframe"
+                        srcdoc={code}
+                        frameBorder="0"
+                        width="100%"
+                        height="360px"
+                        allowFullScreen={true}
+                      ></iframe>
+                    </Card>
+                    <section className="tea-code">
+                      <Copy text={code}/>
+                      <MonacoEditor
+                        className="tea-code-pre"
+                        monaco={monaco}
+                        height={360}
+                        value={code}
+                        language="javascript"
+                        onChange={val => setCode(val)}
+                        defaultValue={code}
+                      />
+                    </section>
+                  </div>
+                </Form.Item>
+                {
+                  docs[value] ?
+                  <Form.Item label=" " >
+                    <Card>
+                      <Card.Body>
+                        <div>{docs[value]}</div>
+                        {/* <div dangerouslySetInnerHTML={{__html: marked(docs[value])}} /> */}
+                      </Card.Body>
+                    </Card>                
+                  </Form.Item>
+                  : null
+                }
+                
+              </Form>
+            </Card>        
+          </Content.Body>
         </Content>
       </Body>
     </Layout>

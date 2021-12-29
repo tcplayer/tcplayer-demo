@@ -35,13 +35,6 @@
   speed: 0.2,// 建议取值范围 0< speed <=1，默认值 0.2
   content: "7447398157015849771" // 类型必须为String，
   
-  // 注意：
-  // 1. 水印移动范围为实际视频显示区域，如果视频自带黑边，播放器无法进行规避。
-  // 2. 在使用动态水印功能时，播放器对象的引用不能暴露到全局环境，否则动态水印可以轻易去除。
-  // 3. 动态水印不适合移动端场景，特别是劫持播放的场景。常见问题：https://cloud.tencent.com/document/product/881/20219
-  // 4. 可以通过屏蔽全屏按钮，规避部分全屏后被劫持导致水印失效的情况。
-  // 5. 动态水印目前为测试功能，有问题请联系技术支持。
-
   // 动态水印插件的其他方法
   // player.DynamicWatermark().pauseAnimation() // 暂停动态水印动画，这时不能去掉水印的dom节点
   // player.DynamicWatermark().resumeAnimation() // 恢复动态水印动画，这时不能去掉水印的dom节点
@@ -56,7 +49,7 @@
     plugins:{
       DynamicWatermark: {
         speed: 0.2,
-        content: "7447398157015849771"
+        content: "腾讯云视立方播放器SDK"
       }
     }
   });

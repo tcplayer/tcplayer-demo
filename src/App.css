@@ -7,6 +7,79 @@
   background-repeat: no-repeat;
 }
 
+.top-area {
+  position: relative;
+  width: 100%;
+  height: 260px;
+  text-align: center;
+  background: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/banner.png);
+}
+.top-title {
+  margin: 56px 0 24px 0;
+  display: block;
+  font-size: 42px;
+  color: #fff;
+}
+.top-btns .tea-btn{
+  width: 160px;
+  height: 40px;
+  font-size: 14px;
+}
+
+.top-btns .tea-btn a {
+  text-decoration: none;
+}
+
+.top-btns .tea-btn:first-child {
+  margin-right: 20px;
+}
+
+.top-btns .tea-btn:nth-child(2) {
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+}
+
+
+.top-btns .tea-btn a {
+  color: #fff;
+}
+
+.card {
+  border-radius: 4px;
+  border: 1px solid #FFFFFF;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.06);
+}
+
+.card-notice {
+  height: 42px;
+  width: 1360px;
+  display: flex;
+  align-items: center;
+  justify-content: start;
+  position: absolute;
+  left: 50%;
+  bottom: -21px;
+  transform: translate(-50%, 0);
+  background-image: linear-gradient(180deg, #F3F5F8 0%, #FFFFFF 100%);
+}
+
+.card-notice img {
+  margin: 0 10px 0 20px;
+}
+.card-notice a {
+  margin: 0 5px;
+}
+
+.card-player-function {
+  padding: 20px;
+  margin-top: 20px;
+}
+
+.card-preview {
+ padding: 14px 0 20px 0;
+}
+
 .tea-nav__logo {
   margin-right: 20px;
 }
@@ -54,9 +127,9 @@
 
 .tea-code {
   position: relative;
-  /* width: 100%; */
-  width: calc(100% - 640px);
+  width: calc(100% - 640px - 20px);
   background: #fff;
+  border: 1px solid #DDDDDD;
 }
 .tea-code .tea-icon-copy {
   position: absolute;
@@ -67,7 +140,6 @@
   cursor: pointer;
 }
 .tea-code-pre {
-  padding: 10px;
   box-sizing: border-box;
   font-size: 12px;
   height: 360px;
@@ -80,5 +152,6 @@
 }
 .iframe-wrapper .tea-card {
   width: 640px;
+  height: 360px;
   margin: 0 20px 0 0;
 }

@@ -110,8 +110,10 @@ function App() {
                       { text: "提示文案", value: "customError" },
                       { text: "贴片广告", value: "poster" },
                       { text: "统计信息", value: "fileStatistic" },
+                      { text: "倍速播放", value: "playbackRate" },
                       { text: "多语言", value: "language" },
                       { text: "多实例", value: "multi" },
+
                       { text: (
                         <>
                           <a href="https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo" target="_blank" rel="noreferrer">更多</a>

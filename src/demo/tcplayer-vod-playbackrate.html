@@ -24,36 +24,6 @@
         width: 50%;
       }
     }
-    .vjs-poster {
-      width: 60%;
-      height: 60%;
-      left: 50%;
-      top: 50%;
-      transform: translate(-50%, -50%);
-      display: flex;
-      justify-content: space-between;
-    }
-    .ad-text-node {
-      background: rgba(255, 255, 255, 0.2);
-      width: 44px;
-      height: 23px;
-      margin: 5px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 10px;
-      font-size: 12px;
-    }
-    .ad-close-icon-node {
-      width: 14px;
-      height: 14px;
-      display: inline-block;
-      margin-left: 10px;
-      background-image: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-close.png);
-      background-size: cover;
-      cursor: pointer;
-      margin: 6px;
-    }
   </style>
 </head>
 <body>
@@ -67,36 +37,17 @@
 * 播放器区域的尺寸请按需设置，建议通过 css 进行设置，通过css可实现容器自适应等效果
 * playsinline webkit-playsinline 这几个属性是为了在标准移动端浏览器不劫持视频播放的情况下实现行内播放，此处仅作示例，请按需使用
 * 设置 x5-playsinline 属性会使用 X5 UI 的播放器
-  poster: "https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/poster.png",
-
 -->
 <script>
-  var PosterImage = TCPlayer.getComponent('PosterImage');
-  PosterImage.prototype.handleClick = function() {
-    window.open("https://cloud.tencent.com/product/vcube");
-  }
-  
   var player = TCPlayer("player-container-id", {
-    fileID: "387702293675946633",
-    appID: "1500009007",
-    poster: "https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/poster.png",
+    fileID: "5285890799710670616",
+    appID: "1400329073",
+    // 根据业务需要设置倍速可选值
+    playbackRates: [0.5, 1, 1.5, 2],
   });
 
-  var adTextNode = document.createElement('span');
-  adTextNode.className = "ad-text-node";
-  adTextNode.innerHTML = '广告';
-
-  var adCloseIconNode = document.createElement('i');
-  adCloseIconNode.className = 'ad-close-icon-node';
-  adCloseIconNode.onclick = function(e) {
-    e.stopPropagation();
-    player.posterImage.dispose();  
-  }
-
-
-  player.posterImage.el_.appendChild(adTextNode);
-  player.posterImage.el_.appendChild(adCloseIconNode);
-
+  // 通过 api 设置倍速
+  player.playbackRate(1.5);
 </script>
 </body>
 </html>

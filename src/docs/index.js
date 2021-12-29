@@ -246,10 +246,27 @@ const customError = (() => {
   </Row>
 })();
 
+const poster = (() => {
+  return <Row>
+  <Col>
+    <Title>广告贴图说明</Title>
+    <List type="bullet">
+      <List.Item>如果上传的视频已生成封面图，优先使用生成的封面图，详情请看控制台 <a href="https://console.cloud.tencent.com/vod" target="_blank" rel="noreferrer">【云点播】</a>-【音视频管理】。</List.Item>
+    </List>
+  </Col>
+  </Row>
+})();
 
-
-
-
+const playbackRate = (() => {
+  return <Row>
+  <Col>
+    <Title>倍速说明</Title>
+    <List type="bullet">
+      <List.Item>如果浏览器不支持倍速播放，播放器将不会显示倍速切换按钮。</List.Item>
+    </List>
+  </Col>
+  </Row>
+})();
 
 export const docs = {
   sizeAdaptive,
@@ -267,4 +284,6 @@ export const docs = {
   customError,
   subtitles,
   dynamicWatermark,
+  poster,
+  playbackRate,
 } 

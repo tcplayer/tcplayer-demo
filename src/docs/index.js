@@ -53,7 +53,7 @@ const vttThumbnail = (() => {
     <Col>
       <Title>缩略图预览说明</Title>
       <List type="bullet">
-        <List.Item>通过服务端 API 生成视频的缩略图与 VTT 文件，相关文档可参阅 <a href="https://cloud.tencent.com/document/product/266/33480#.E9.9B.AA.E7.A2.A7.E5.9B.BE.E6.A8.A1.E6.9D.BF" target="_blank">截图 - 雪碧图</a></List.Item>
+        <List.Item>通过服务端 API 生成视频的缩略图与 VTT 文件，相关文档可参阅 <a href="https://cloud.tencent.com/document/product/266/33480#.E9.9B.AA.E7.A2.A7.E5.9B.BE.E6.A8.A1.E6.9D.BF" target="_blank" rel="noreferrer">截图 - 雪碧图</a></List.Item>
         <List.Item>自行生成缩略图文件与 VTT 文件，并将两个文件的 URL 传递给播放器，参考示例“缩略图预览 - 传入缩略图与 VTT 文件”</List.Item>
         <List.Item>该功能仅支持桌面端浏览器。</List.Item>
         <List.Item>在浏览器劫持视频播放的情况下，该功能无法使用。</List.Item>
@@ -145,8 +145,8 @@ const key = (() => {
     <Col>
       <Title>Key 防盗链说明</Title>
       <List type="bullet">
-        <List.Item>开启流程请参见 <a href="https://cloud.tencent.com/document/product/266/14047" target="_blank">Key 防盗链</a>。</List.Item>
-        <List.Item>参数 psign 即超级播放器签名，其具体含义请参见  <a href="https://cloud.tencent.com/document/product/266/42436" target="_blank">超级播放器签名</a>。</List.Item>
+        <List.Item>开启流程请参见 <a href="https://cloud.tencent.com/document/product/266/14047" target="_blank" rel="noreferrer">Key 防盗链</a>。</List.Item>
+        <List.Item>参数 psign 即超级播放器签名，其具体含义请参见  <a href="https://cloud.tencent.com/document/product/266/42436" target="_blank" rel="noreferrer">超级播放器签名</a>。</List.Item>
       </List>
     </Col>
   </Row>
@@ -157,7 +157,7 @@ const trial = (() => {
     <Col>
       <Title>试看说明</Title>
       <List type="bullet">
-        <List.Item>使用试看功能需要先开启 Key 防盗链，开启流程请参见 <a href="https://cloud.tencent.com/document/product/266/14047" target="_blank">Key 防盗链</a>。</List.Item>
+        <List.Item>使用试看功能需要先开启 Key 防盗链，开启流程请参见 <a href="https://cloud.tencent.com/document/product/266/14047" target="_blank" rel="noreferrer">Key 防盗链</a>。</List.Item>
         <List.Item>播放器播放的视频时长是 exper 参数指定的长度，与已往在播放端控制播放时长的试看功能不同，播放器不会获取完整的视频。</List.Item>
         <List.Item>试看时长是根据视频关键帧进行裁剪，实际截取的试看时长可能会比设定值少。</List.Item>
         <List.Item>开启试看后播放器仍会显示视频原始时长（在 Chrome 和 Firefox 播放 HLS 格式的试看视频会显示试看时长）。</List.Item>

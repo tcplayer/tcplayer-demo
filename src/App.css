@@ -7,6 +7,87 @@
   background-repeat: no-repeat;
 }
 
+.tcplayerlite-logo {
+  height: 36px;
+}
+.tcplayerlite .tea-layout__content {
+  background-color: #fff;
+}
+
+.webrtc-container {
+  width: 680px;
+  margin: 10px auto;
+}
+
+.webrtc-container .webrtc-input {
+  width: 100%;
+}
+
+.tcplayerlite .clarity-switcher {
+  display: flex;
+  justify-content: space-between;
+  margin: 20px 0;
+}
+
+.tcplayerlite .preview-btn {
+  display: flex;
+  justify-content: space-between;
+}
+.tcplayerlite .preview-btn button {
+  width: 49%;
+}
+
+.tcplayerlite .tcplayer-container {
+  width: 100%;
+  height:  28rem;
+  margin-top: 40px;
+}
+
+.tcplayerlite .manipulate-btns {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+}
+
+.webrtc-support {
+  margin-bottom: 20px;
+  float: right;
+}
+
+.webrtc-support .tea-badge{
+  border-radius: 2px;
+  margin-left: 10px;
+}
+
+.tea-bubble {
+  max-width: 500px;
+}
+
+.tcplayer-wrapper {
+  position: relative;
+}
+
+.statistics-panel {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 40%;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 10px;
+}
+
+.stat-wrapper {
+  color: #fff;
+}
+.stat-wrapper li {
+  height: 12px;
+  margin-left: 10px;
+  display: flex;
+  justify-content: space-between;
+}
+
+
 .top-area {
   position: relative;
   width: 100%;
@@ -19,6 +100,11 @@
   display: block;
   font-size: 42px;
   color: #fff;
+}
+.sub-title {
+  color: #fff;
+  font-size: 24px;
+  display: block;
 }
 .top-btns .tea-btn{
   width: 160px;
@@ -43,6 +129,14 @@
 
 .top-btns .tea-btn a {
   color: #fff;
+}
+
+.format-tabs {
+  text-align: center;
+}
+
+.format-tabs .tea-tabs__tabitem {
+  min-width: 120px;
 }
 
 .card {

@@ -1,5 +1,5 @@
 import "@tencent/tea-component/dist/tea.css";
-import "./App.css";
+import "../App.css";
 import React, { useState, useEffect} from "react";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import {
@@ -14,8 +14,8 @@ import {
   Button,
 } from "@tencent/tea-component";
 
-import { source } from './demo/index.js';
-import { docs } from './docs';
+import { source } from '../demo/index.js';
+import { docs } from '../docs';
 
 const { Header, Body, Content } = Layout;
 
@@ -137,7 +137,7 @@ function App() {
                       <iframe
                         id="previewIframe"
                         title="previewIframe"
-                        srcdoc={code}
+                        srcDoc={code}
                         frameBorder="0"
                         width="100%"
                         height="360px"

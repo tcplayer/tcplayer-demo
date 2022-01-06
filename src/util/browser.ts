@@ -31,6 +31,7 @@ const isSafari = safariReg.test(navigator.userAgent) && !chromeReg.test(navigato
  */
 const isIOS = iOSReg.test(navigator.userAgent);
 export const IS_IOS = isIOS;
+
 /**
  * 获取iOS版本
  */
@@ -38,6 +39,10 @@ export const getIOSVersion = () => {
   const match = navigator.userAgent.match(iOSVersionReg);
   return (match && [parseInt(match[1], 10), parseInt(match[2], 10), parseInt(match[3] || '0', 10)]) || [];
 };
+
+export const IS_ANDROID = (/Android/i).test(navigator.userAgent);
+
+export const IS_MOBILE = IS_IOS || IS_ANDROID;
 
 /**
  * Extract browser version out of the provided user agent string.

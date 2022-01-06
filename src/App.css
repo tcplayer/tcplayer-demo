@@ -15,12 +15,17 @@
 }
 
 .webrtc-container {
-  width: 680px;
+  width: 100%;
+  max-width: 1024px;
   margin: 10px auto;
 }
 
 .webrtc-container .webrtc-input {
   width: 100%;
+}
+
+.webrtc-container .tea-form .tea-form__controls {
+  padding-right: 0;
 }
 
 .tcplayerlite .clarity-switcher {
@@ -39,19 +44,36 @@
 
 .tcplayerlite .tcplayer-container {
   width: 100%;
-  height:  28rem;
-  margin-top: 40px;
-}
-
-.tcplayerlite .manipulate-btns {
-  display: flex;
-  justify-content: space-between;
+  height: 42rem;
   margin-top: 20px;
 }
 
+@media (min-width: 414px) and (max-width: 768px) {
+  .tcplayerlite .tcplayer-container {
+    height: 28rem;
+  }
+}
+
+@media (max-width: 414px) { 
+  .tcplayerlite .tcplayer-container {
+    height: 16rem;
+  }
+}
+
+.tcplayerlite .manipulate-btns {
+  margin-top: 20px;
+  text-align: left;
+}
+
+.tcplayerlite .manipulate-btns button {
+  margin: 10px 10px 0 0;
+  padding: 0 16px;
+}
+
 .webrtc-support {
-  margin-bottom: 20px;
-  float: right;
+  width: 100%;
+  margin: 10px 0;
+  text-align: right;
 }
 
 .webrtc-support .tea-badge{
@@ -94,6 +116,7 @@
   height: 260px;
   text-align: center;
   background: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/banner.png);
+  background-size: cover;
 }
 .top-title {
   margin: 56px 0 24px 0;

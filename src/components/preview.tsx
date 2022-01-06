@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Checkbox, Input, Button, Icon, Text, Bubble, Badge } from "@tencent/tea-component";
 import QRCode from 'qrcode';
 import { getUrlParameter } from '../util';
-import { checkSupport } from '../util/browser';
+import { checkSupport, IS_MOBILE } from '../util/browser';
 
 function Preview({type = 'webrtc', activeId}) {
   const [url, setUrl] = useState<string>();
@@ -65,7 +65,7 @@ function Preview({type = 'webrtc', activeId}) {
 
   // 父组件切换tab时，暂停当前页面
   useEffect(() => {
-    if (type !== activeId && tcplayer) {
+    if (type !== activeId && tcplayer && tcplayer.playing()) {
       tcplayer.pause();
     }
   }, [activeId]);
@@ -99,6 +99,12 @@ function Preview({type = 'webrtc', activeId}) {
   }
 
   const generateQRCode = async (visible) => {
+
+    if (IS_MOBILE) {
+      preview();
+      return false;
+    }
+
     if (visible) {
       const fullAddress = `${window.location.href}?url=${url}&url_sd=${url_sd}&url_hd=${url_hd}&type=${type}`;
 
@@ -165,14 +171,14 @@ function Preview({type = 'webrtc', activeId}) {
     <div className="webrtc-container">
       {
         type === 'webrtc' ? (
-          <section className="webrtc-support">
-            <Badge theme={webrtcSupport ? 'success' : 'warning'}>WebRTC { webrtcSupport ? '' : 'Not' } Support</Badge>
-            <Badge theme={h264Support ? 'success' : 'warning'}>H264 { h264Support ? '' : 'Not' } Support</Badge>
-          </section>
+          <>
+            <section className="webrtc-support">
+              <Badge theme={webrtcSupport ? 'success' : 'warning'}>WebRTC { webrtcSupport ? '' : 'Not' } Support</Badge>
+              <Badge theme={h264Support ? 'success' : 'warning'}>H264 { h264Support ? '' : 'Not' } Support</Badge>
+            </section>
+          </>
         ) : null
       }
-      
-
       {
         clarity.length === 0 ? (
           <Input
@@ -227,6 +233,7 @@ function Preview({type = 'webrtc', activeId}) {
       }
       
 
+
       <section className="clarity-switcher">
         <Checkbox.Group value={clarity} onChange={value => setClarity(value)}>
           <Checkbox name="clarity">多分辨率切换</Checkbox>
@@ -251,7 +258,6 @@ function Preview({type = 'webrtc', activeId}) {
 
       <section className="tcplayer-wrapper">
         <div id={`tcplayer_container_${type}`} className="tcplayer-container"></div>
-
         {
           stat && showStat ? (
             <div className="statistics-panel">

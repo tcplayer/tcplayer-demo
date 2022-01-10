@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { Form, Checkbox, Input, Button, Icon, Text, Bubble, Badge } from "@tencent/tea-component";
 import QRCode from 'qrcode';
 import { getUrlParameter } from '../util';
-import { checkSupport, IS_MOBILE } from '../util/browser';
+import { checkSupport, IS_MOBILE, IS_IOS } from '../util/browser';
 
 function Preview({type = 'webrtc', activeId}) {
   const [url, setUrl] = useState<string>();
@@ -17,37 +17,27 @@ function Preview({type = 'webrtc', activeId}) {
 
 
   useEffect(() => {
-    // if (type === 'webrtc') {
-    //   setUrl('webrtc://5664.liveplay.myqcloud.com/live/5664_harchar1?txSecret=f22a813b284137ed10d3259a7b5c224b&txTime=6403f7bb');
-    // }
-    // if (type === 'hls') {
-    //   setUrl('http://68789.liveplay.myqcloud.com/live/webrtc_demo_1641365557176.m3u8');
-    // }
-
-    // if (type === 'flv') {
-    //   setUrl('http://68789.liveplay.myqcloud.com/live/webrtc_demo_1641365557176.flv');
-    // }
-    // if (type === 'mp4') {
-    //   setUrl('http://1306264703.vod2.myqcloud.com/56952ee2vodcq1306264703/97c078a4387702291986266469/1JLXAACIsaYA.mp4');
-    // }
-
     const url = getUrlParameter('url');
     const url_sd = getUrlParameter('url_sd');
     const url_hd = getUrlParameter('url_hd');
-    
-    setUrl(url);
-    setUrlSd(url_sd);
-    setUrlHd(url_hd);
+    const urlType = getUrlParameter('type');
+  
+    if (urlType === type) {
 
-    if (!url && !url_sd && !url_hd && type === 'webrtc') {
+      setUrl(url);
+      setUrlSd(url_sd);
+      setUrlHd(url_hd);
+
+      if ((url && url_sd) || (url && url_hd) || (url_sd || url_hd)) {
+        setClarity(['clarity']);
+      }
+  
+    }
+
+    if ((!url && !url_sd && !url_hd && type === 'webrtc') || (urlType === 'flv' && IS_IOS)) {
       setUrl('webrtc://5664.liveplay.myqcloud.com/live/5664_harchar1?txSecret=f22a813b284137ed10d3259a7b5c224b&txTime=6403f7bb');
     }
 
-    if ((url && url_sd) || (url && url_hd) || (url_sd || url_hd)) {
-      setClarity(['clarity']);
-    }
-
-    
     const support = async () => {
       if (type === 'webrtc') {
         const support = await checkSupport();
@@ -59,8 +49,6 @@ function Preview({type = 'webrtc', activeId}) {
     support();
   
   }, []);
-
-
 
 
   // 父组件切换tab时，暂停当前页面
@@ -99,20 +87,13 @@ function Preview({type = 'webrtc', activeId}) {
   }
 
   const generateQRCode = async (visible) => {
-
-    if (IS_MOBILE) {
-      preview();
-      return false;
-    }
-
     if (visible) {
-      const fullAddress = `${window.location.href}?url=${url}&url_sd=${url_sd}&url_hd=${url_hd}&type=${type}`;
-
+      const fullAddress = `${window.location.origin}${window.location.pathname}?url=${url ? encodeURIComponent(url) : ''}&url_sd=${url_sd ? encodeURIComponent(url_sd) : ''}&url_hd=${url_hd ? encodeURIComponent(url_hd) : ''}&type=${type}`;
       console.log('fullAddress', fullAddress);
 
       setTimeout(() => {
         QRCode.toCanvas(document.getElementById('canvas'), fullAddress, function (error) {
-          if (error) console.error(error)
+          if (error) console.error(error);
         })
       }, 10);
     }
@@ -249,11 +230,23 @@ function Preview({type = 'webrtc', activeId}) {
       </section>
 
       <section className="preview-btn">
-        <Button onClick={preview} type="primary">PC 端播放器预览</Button>
-        <Bubble trigger="click" onVisibleChange={generateQRCode} placement="top" content={<canvas id="canvas"></canvas>}>
-          <Button type="primary">移动端播放器预览</Button>
-        </Bubble>
-        
+        <Button onClick={preview} type="primary" className={IS_MOBILE ? 'btn-mobile-preview' : ''}>{
+          !IS_MOBILE ? 'PC 端播放器预览' : '预览'
+        }</Button>
+
+        {
+          !IS_MOBILE ? (
+            <Bubble trigger="click" onVisibleChange={generateQRCode} placement="bottom" content={<>
+              <canvas id="canvas"></canvas>
+              {
+                type === 'flv' ? (<Text className="qr-tips">不支持iOS端播放</Text>) : null
+              }
+            </>}>
+              <Button type="primary">移动端播放器预览</Button>
+            </Bubble>
+          ) : null
+        }
+
       </section>
 
       <section className="tcplayer-wrapper">

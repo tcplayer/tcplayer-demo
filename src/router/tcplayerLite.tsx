@@ -4,6 +4,7 @@ import React, { useState, useEffect } from "react";
 import { Layout, NavMenu, Tabs, TabPanel, Text } from "@tencent/tea-component";
 import Preview from '../components/preview';
 import { getUrlParameter } from '../util';
+import { IS_IOS } from '../util/browser';
 
 const { Header, Body, Content } = Layout;
 
@@ -12,13 +13,13 @@ function TcplayerLite() {
   const tabs = [
     { id: "webrtc", label: "WebRTC" },
     { id: "hls", label: "HLS" },
-    { id: "flv", label: "FLV" },
+    { id: "flv", label: "FLV", disabled: IS_IOS },
     { id: "mp4", label: "MP4" },
   ];
 
   useEffect(() => {
     const type = getUrlParameter('type') || 'webrtc';
-    setActiveId(type);
+    setActiveId(type === 'flv' && IS_IOS ? 'webrtc' : type );
   }, []);
 
   return (

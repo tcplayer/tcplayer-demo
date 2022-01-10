@@ -38,8 +38,20 @@
   display: flex;
   justify-content: space-between;
 }
+
 .tcplayerlite .preview-btn button {
   width: 49%;
+}
+
+.tcplayerlite .btn-mobile-preview { 
+  width: 100%!important;
+}
+
+.qr-tips {
+  display: block;
+  padding-left: 20px;
+  position: relative;
+  top: -10px;
 }
 
 .tcplayerlite .tcplayer-container {

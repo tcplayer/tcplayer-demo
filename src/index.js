@@ -8,6 +8,8 @@ import './index.css';
 import Tcplayer from './router/tcplayer';
 import TcplayerLite from './router/tcplayerLite.tsx';
 
+new window.VConsole();
+
 ReactDOM.render(
   <React.StrictMode>
     <Router>

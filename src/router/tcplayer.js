@@ -62,7 +62,7 @@ function App() {
               <a href="https://cloud.tencent.com/document/product/1449/57088" target="_blank" rel="noreferrer">立即使用</a>
             </Button>
             <Button>
-              <a href="https://cloud.tencent.com/product/player" target="_blank" rel="noreferrer">播放器SDK</a>
+              <a href="https://cloud.tencent.com/product/player" target="_blank" rel="noreferrer">产品文档</a>
             </Button>
           </div>
           <Card className="card card-notice">
@@ -86,6 +86,7 @@ function App() {
                     value={value.toString()}
                     onChange={value => {
                       if (value === 'more') {
+                        window.open('https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo');
                         return false;
                       }
                       clearIframe('previewIframe');
@@ -94,29 +95,30 @@ function App() {
                     options={[
                       { text: "缩略图预览-云端生成文件", value: "vttThumbnail" },
                       { text: "缩略图预览-手动传入文件", value: "vttThumbnailSrc"},
+                      { text: "事件回调", value: "event" },
+                      { text: "动态水印", value: "dynamicWatermark" },
+                      { text: "贴片广告", value: "poster" },
                       { text: "进度条标记", value: "progressMarker" },
                       { text: "自适应码流", value: "qualityApi" },
                       { text: "DASH 播放", value: "dash" },
                       { text: "清晰度切换提示", value: "levelSwitchTips" },
                       { text: "Key 防盗链", value: "key" },
-                      { text: "播放器尺寸", value: "sizeAdaptive" },
-                      { text: "事件回调", value: "event" },
-                      { text: "字幕", value: "subtitles" },
                       { text: "断点续播", value: "continuePlay" },
+                      { text: "视频轮播", value: "playlist" },
                       { text: "视频切换", value: "changeFile" },
                       { text: "试看功能", value: "trial" },
                       { text: "视频镜像", value: "mirror" },
-                      { text: "动态水印", value: "dynamicWatermark" },
                       { text: "提示文案", value: "customError" },
-                      { text: "贴片广告", value: "poster" },
                       { text: "统计信息", value: "fileStatistic" },
+                      { text: "播放器尺寸", value: "sizeAdaptive" },
                       { text: "倍速播放", value: "playbackRate" },
                       { text: "多语言", value: "language" },
                       { text: "多实例", value: "multi" },
+                      { text: "字幕", value: "subtitles" },
 
                       { text: (
                         <>
-                          <a href="https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo" target="_blank" rel="noreferrer">更多</a>
+                          <a href="" target="_blank" rel="noreferrer">更多</a>
                         </>
                       ), value: "more" },
                       // { text: "HLS 自适应码流播放", value: "hlsMasterplaylist" },

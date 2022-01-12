@@ -25,8 +25,7 @@
       }
     }
     .vjs-poster {
-      width: 60%;
-      height: 60%;
+      width: 100%;
       left: 50%;
       top: 50%;
       transform: translate(-50%, -50%);
@@ -90,13 +89,24 @@
   adCloseIconNode.className = 'ad-close-icon-node';
   adCloseIconNode.onclick = function(e) {
     e.stopPropagation();
-    player.posterImage.dispose();  
+    player.posterImage.hide();
   }
-
 
   player.posterImage.el_.appendChild(adTextNode);
   player.posterImage.el_.appendChild(adCloseIconNode);
 
+  player.on('pause', function() {
+    player.posterImage.show();
+    player.posterImage.el_.style.width = '60%';
+    player.posterImage.el_.style.height = '60%';
+    player.posterImage.el_.style.display = 'flex';
+  });
+
+  player.on('playing', function() {
+    player.posterImage.hide();
+  });
+
 </script>
 </body>
 </html>
+

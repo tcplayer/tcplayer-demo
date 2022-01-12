@@ -1,5 +1,5 @@
 import React from "react";
-import { List, Row, Col, Table } from "@tencent/tea-component";
+import { List, Row, Col, Table, Text } from "@tencent/tea-component";
 
 function Title({ children }) {
   return <h3 style={{ margin: "10px 0" }}>{children}</h3>;
@@ -158,7 +158,7 @@ const trial = (() => {
       <Title>试看说明</Title>
       <List type="bullet">
         <List.Item>使用试看功能需要先开启 Key 防盗链，开启流程请参见 <a href="https://cloud.tencent.com/document/product/266/14047" target="_blank" rel="noreferrer">Key 防盗链</a>。</List.Item>
-        <List.Item>播放器播放的视频时长是 exper 参数指定的长度，与已往在播放端控制播放时长的试看功能不同，播放器不会获取完整的视频。</List.Item>
+        <List.Item>播放器播放的视频时长是 exper 参数指定的长度，与以往在播放端控制播放时长的试看功能不同，播放器不会获取完整的视频。</List.Item>
         <List.Item>试看时长是根据视频关键帧进行裁剪，实际截取的试看时长可能会比设定值少。</List.Item>
         <List.Item>开启试看后播放器仍会显示视频原始时长（在 Chrome 和 Firefox 播放 HLS 格式的试看视频会显示试看时长）。</List.Item>
       </List>
@@ -268,6 +268,19 @@ const playbackRate = (() => {
   </Row>
 })();
 
+const event = <Row>
+  <Col>
+    <Title>事件回调说明</Title>
+    <List type="bullet">
+      <List.Item>
+        <Text>完整回调事件及其含义参见 </Text>
+        <a href="https://cloud.tencent.com/document/product/881/30820#.E4.BA.8B.E4.BB.B6" target="_blank" rel="noreferrer">回调</a>
+      </List.Item>
+    </List>
+  </Col>
+</Row>
+
+
 export const docs = {
   sizeAdaptive,
   continuePlay,
@@ -286,4 +299,5 @@ export const docs = {
   dynamicWatermark,
   poster,
   playbackRate,
+  event,
 } 

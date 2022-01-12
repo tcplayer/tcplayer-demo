@@ -18,12 +18,6 @@
     .tcplayer {
       margin: 0 auto;
     }
-    @media screen and (max-width: 640px) {
-      #player-container-id {
-        width: 100%;
-        height: 270px;
-      }
-    }
     /* 设置logo在高分屏的显示样式 */
     @media only screen and (min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 2) {
       .tcp-logo-img {
@@ -52,20 +46,21 @@
     plugins: {
       PlayList: {
         data: [
-          { fileID: '5285890781386012275', appID:'1256993030', duration: 87, text: '播放器demo1',
+          { fileID: '387702291984920311', appID:'1500006438', duration: 61, text: '播放器demo1',
+            psign: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTUwMDAwNjQzOCwiZmlsZUlkIjoiMzg3NzAyMjkxOTg0OTIwMzExIiwiY3VycmVudFRpbWVTdGFtcCI6MTYzNzg5NjQ4OSwiZXhwaXJlVGltZVN0YW1wIjoxNjgwMzE4ODgxLCJwY2ZnIjoiZGVmYXVsdCIsInVybEFjY2Vzc0luZm8iOnsidCI6IjE2ODAzMTg4ODEifX0.tKrh0doSkpQfJ1smpZ2KwTkmIf5pYnxccjoQIXzffRw",
             img: '//1256993030.vod2.myqcloud.com/d520582dvodtransgzp1256993030/cc9f922c5285890781386012275/1535036537_3660517020.100_8700.jpg',
           },
-          { fileID: '7447398157015905410', appID:'1256993030', duration: 50, text: '播放器demo2',
+          { fileID: '387702291984373116', appID:'1500006438', duration: 7, text: '播放器demo3',
+            psign: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTUwMDAwNjQzOCwiZmlsZUlkIjoiMzg3NzAyMjkxOTg0MzczMTE2IiwiY3VycmVudFRpbWVTdGFtcCI6MTYzNzg5NTg3OCwiZXhwaXJlVGltZVN0YW1wIjoxNjgwMzE4MjYzLCJwY2ZnIjoiZGVmYXVsdCIsInVybEFjY2Vzc0luZm8iOnsidCI6IjE2ODAzMTgyNjMifX0.vV-t1ztSByoq8RDeFCYR6vmKyMU1XdkFNlx9QScLcSw",
             img: '//1256993030.vod2.myqcloud.com/20f8b585vodgzp1256993030/7732bd367447398157015849771/7447398156945023921.jpg',
           },
-          { fileID: '7447398156757387966', appID:'1253039488', duration: 7, text: 'test_demo1',
-            img: '//1253039488.vod2.myqcloud.com/24a25a8avodgzp1253039488/e22896a57447398156757387966/7447398156759017853.png',
+          { fileID: '387702291984920311', appID:'1500006438', duration: 61, text: '播放器demo1',
+            psign: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTUwMDAwNjQzOCwiZmlsZUlkIjoiMzg3NzAyMjkxOTg0OTIwMzExIiwiY3VycmVudFRpbWVTdGFtcCI6MTYzNzg5NjQ4OSwiZXhwaXJlVGltZVN0YW1wIjoxNjgwMzE4ODgxLCJwY2ZnIjoiZGVmYXVsdCIsInVybEFjY2Vzc0luZm8iOnsidCI6IjE2ODAzMTg4ODEifX0.tKrh0doSkpQfJ1smpZ2KwTkmIf5pYnxccjoQIXzffRw",
+            img: '//1256993030.vod2.myqcloud.com/d520582dvodtransgzp1256993030/cc9f922c5285890781386012275/1535036537_3660517020.100_8700.jpg',
           },
-          { fileID: '7447398157122660769', appID:'1253039488', duration: 5, text: 'test_demo2',
-            img: '//1253039488.vod2.myqcloud.com/d8c9fd32vodtransgzp1253039488/ec773d137447398157122660769/1531137607_2324619789.100_0.jpg',
-          }
         ],
-        title: '播放列表'
+        title: '播放列表',
+        loop: true,
       }
     }
   });

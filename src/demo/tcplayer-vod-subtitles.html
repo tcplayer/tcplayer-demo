@@ -37,7 +37,9 @@
     appID: "1256993030"
   });
   player.on("ready", function() {
+    // 添加字幕文件
     var subTrack = player.addRemoteTextTrack({src: "//tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/vtt/%E4%B8%AD%E6%96%87.vtt", kind:"subtitles" , srclang:"zh-cn", label:"中文", default:"true"}, true);
+    // 设置回调事件
     subTrack.addEventListener("load", function(){
       console.log("subTrack load", subTrack.track);
     });

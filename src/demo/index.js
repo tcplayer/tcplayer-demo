@@ -27,6 +27,7 @@ import customError from './tcplayer-vod-custom-error.html';
 import poster from './tcplayer-vod-poster.html';
 import playbackRate from './tcplayer-vod-playbackrate.html';
 import playlist from './tcplayer-vod-playlist.html';
+import customUI from './tcplayer-vod-custom-ui.html';
 
 export const source = {
   base,
@@ -54,6 +55,7 @@ export const source = {
   poster,
   playbackRate,
   playlist,
+  customUI,
   // logo,
   // masterPlayList,
   // imagePatch,

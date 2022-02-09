@@ -99,10 +99,10 @@ function App() {
                       { text: "动态水印", value: "dynamicWatermark" },
                       { text: "贴片广告", value: "poster" },
                       { text: "进度条标记", value: "progressMarker" },
-                      { text: "自适应码流", value: "qualityApi" },
                       { text: "DASH 播放", value: "dash" },
-                      { text: "清晰度切换提示", value: "levelSwitchTips" },
                       { text: "Key 防盗链", value: "key" },
+                      { text: "自适应码流", value: "qualityApi" },
+                      { text: "清晰度切换提示", value: "levelSwitchTips" },
                       { text: "断点续播", value: "continuePlay" },
                       { text: "视频轮播", value: "playlist" },
                       { text: "视频切换", value: "changeFile" },
@@ -111,11 +111,11 @@ function App() {
                       { text: "提示文案", value: "customError" },
                       { text: "统计信息", value: "fileStatistic" },
                       { text: "播放器尺寸", value: "sizeAdaptive" },
+                      { text: "自定义 UI", value: "customUI", },
                       { text: "倍速播放", value: "playbackRate" },
                       { text: "多语言", value: "language" },
                       { text: "多实例", value: "multi" },
                       { text: "字幕", value: "subtitles" },
-
                       { text: (
                         <>
                           <a href="" target="_blank" rel="noreferrer">更多</a>

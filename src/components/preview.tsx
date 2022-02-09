@@ -35,7 +35,7 @@ function Preview({type = 'webrtc', activeId}) {
     }
 
     if ((!url && !url_sd && !url_hd && type === 'webrtc') || (urlType === 'flv' && IS_IOS)) {
-      setUrl('webrtc://5664.liveplay.myqcloud.com/live/5664_harchar1?txSecret=f22a813b284137ed10d3259a7b5c224b&txTime=6403f7bb');
+      setUrl('webrtc://5664.serverctl.myqcloud.com/live/5664_tabr264');
     }
 
     const support = async () => {

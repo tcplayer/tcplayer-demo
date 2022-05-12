@@ -2,6 +2,7 @@ import "@tencent/tea-component/dist/tea.css";
 import "../App.css";
 import React, { useState, useEffect} from "react";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
+import PlayPanel from "../components/playPanel";
 import {
   Layout,
   NavMenu,
@@ -21,7 +22,7 @@ const { Header, Body, Content } = Layout;
 
 function clearIframe(id){
   var el = document.getElementById(id),
-  iframe = el.contentWindow;
+  iframe = el && el.contentWindow;
   if(el) {
     // eslint-disable-next-line no-script-url
     el.src = 'javascript:void(0)';
@@ -34,11 +35,29 @@ function clearIframe(id){
 }} 
 
 function App() {
-  const [value, setValue] = useState('vttThumbnail');
+  const [value, setValue] = useState('play');
   const [code, setCode] = useState(source[value] || '');
 
+  const onPreview = ({ url, type, fileID, appID, psign }) => {
+    const sourcecode = source[`play${type}`];
+    if (type === 'url') {
+      setCode(sourcecode.replace('foo_url', url));
+    }
+
+    if (type === 'fileid') {
+      const sourcecodeNew = sourcecode.replace('foo_fileID', fileID).replace('foo_appID', appID).replace('psign', (psign || ''));
+      setCode(sourcecodeNew);
+    }
+  }
+
+
   useEffect(() => {
-    setCode(source[value]);
+    if (value !== 'play') {
+      setCode(source[value]);
+    } else {
+      // TODO:
+    }
+    
   }, [value]);
 
   return (
@@ -93,8 +112,10 @@ function App() {
                       setValue(value)
                     }}
                     options={[
+                      { text: "视频播放", value: "play" },
                       { text: "缩略图预览-云端生成文件", value: "vttThumbnail" },
                       { text: "缩略图预览-手动传入文件", value: "vttThumbnailSrc"},
+                      { text: "字幕", value: "subtitles" },
                       { text: "事件回调", value: "event" },
                       { text: "动态水印", value: "dynamicWatermark" },
                       { text: "贴片广告", value: "poster" },
@@ -115,7 +136,7 @@ function App() {
                       { text: "倍速播放", value: "playbackRate" },
                       { text: "多语言", value: "language" },
                       { text: "多实例", value: "multi" },
-                      { text: "字幕", value: "subtitles" },
+                      
                       { text: (
                         <>
                           <a href="" target="_blank" rel="noreferrer">更多</a>
@@ -147,16 +168,25 @@ function App() {
                       ></iframe>
                     </Card>
                     <section className="tea-code">
-                      <Copy text={code}/>
-                      <MonacoEditor
-                        className="tea-code-pre"
-                        monaco={monaco}
-                        height={360}
-                        value={code}
-                        language="javascript"
-                        onChange={val => setCode(val)}
-                        defaultValue={code}
-                      />
+
+                      {
+                        value === 'play' ? <>
+                          <PlayPanel onPreview={onPreview}></PlayPanel>
+                        </> : <>
+                        <Copy text={code}/>
+                        <MonacoEditor
+                          className="tea-code-pre"
+                          monaco={monaco}
+                          height={360}
+                          value={code}
+                          language="javascript"
+                          onChange={val => setCode(val)}
+                          defaultValue={code}
+                        />
+                        </>
+                      }
+
+                      
                     </section>
                   </div>
                 </Form.Item>

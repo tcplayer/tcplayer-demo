@@ -193,6 +193,19 @@ const subtitles = (() => {
 </Row>
 })();
 
+const play = (() => {
+  return <Row>
+  <Col>
+    <Title>视频说明</Title>
+    <List type="bullet">
+      <List.Item>支持WebRTC、FLV、HLS的直播流地址，以及HLS、FLV、MP4等格式的点播播放地址。</List.Item>
+      <List.Item>未经转码的源视频在播放时有可能出现不兼容的情况，建议您使用转码后的视频进行播放。</List.Item>
+      
+    </List>
+  </Col>
+</Row>
+})();
+
 
 
 const records = [
@@ -300,4 +313,5 @@ export const docs = {
   poster,
   playbackRate,
   event,
+  play,
 } 

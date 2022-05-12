@@ -8,6 +8,7 @@ function Preview({type = 'webrtc', activeId}) {
   const [url, setUrl] = useState<string>();
   const [url_sd, setUrlSd] = useState<string>();
   const [url_hd, setUrlHd] = useState<string>();
+  const [autoplay, setAutoplay] = useState<boolean>(false);
   const [clarity, setClarity] = useState<string[]>([]);
   const [tcplayer, setTcplayer] = useState<any>();
   const [stat, setStat] = useState<any>();
@@ -21,6 +22,7 @@ function Preview({type = 'webrtc', activeId}) {
     const url_sd = getUrlParameter('url_sd');
     const url_hd = getUrlParameter('url_hd');
     const urlType = getUrlParameter('type');
+    const autoplay = !!getUrlParameter('autoplay');
   
     if (urlType === type) {
 
@@ -47,6 +49,9 @@ function Preview({type = 'webrtc', activeId}) {
     }
 
     support();
+
+    setAutoplay(autoplay);
+
   
   }, []);
 
@@ -57,6 +62,12 @@ function Preview({type = 'webrtc', activeId}) {
       tcplayer.pause();
     }
   }, [activeId]);
+
+  useEffect(() => {
+    if (autoplay) {
+      preview();
+    }
+  }, [autoplay]);
 
 
   const preview = () => {
@@ -80,9 +91,7 @@ function Preview({type = 'webrtc', activeId}) {
         }
       }
     }, ...sourceList };
-
-    console.log('params', params);
-
+    
     setTcplayer(new (window as any).TcPlayer(`tcplayer_container_${type}`, params));
   }
 

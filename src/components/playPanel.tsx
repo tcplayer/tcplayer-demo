@@ -3,12 +3,12 @@ import { Form, Checkbox, Input, Button, Icon, Text, Bubble, H3, Tabs, TabPanel, 
 import { checkSupport, IS_MOBILE, IS_IOS } from '../util/browser';
 
 const playTabs = [
-  { id: "fileid", label: "FileID播放" },
   { id: "url", label: "URL播放" },
+  { id: "fileid", label: "FileID播放" },
 ];
 
 function PlayPanel (props) {
-  const [type, setType] = useState('fileid');
+  const [type, setType] = useState('url');
   const [url, setUrl] = useState<string>('https://1500005692.vod2.myqcloud.com/43843706vodtranscq1500005692/62656d94387702300542496289/v.f100240.m3u8');
   const [webrtcSupport, setWebrtcSupport] = useState<boolean>();
   const [h264Support, setH264Support] = useState<boolean>();
@@ -122,7 +122,7 @@ function PlayPanel (props) {
               } />
               
               <Input
-                style={{ margin: '10px 0 10px 0' }}
+                style={{ margin: '5px 0 10px 0' }}
                 size='full'
                 value={url}
                 onChange={(value, context) => {
@@ -130,7 +130,7 @@ function PlayPanel (props) {
                 }}
                 placeholder="输入视频地址"
               />
-              <Text theme="weak" reset>支持WebRTC、FLV、HLS的直播流地址，以及HLS、FLV、MP4等格式的点播播放地址</Text>
+              <Text theme="label" reset>支持WebRTC、FLV、HLS的直播流地址，以及HLS、FLV、MP4等格式的点播播放地址</Text>
               <>
                 <Button type="link" style={{ margin: '10px 10px 0 0' }}><a target="_blank" rel="noreferrer" href="https://cloud.tencent.com/document/product/267/32720
   ">如何获取云直播的直播流地址</a></Button>

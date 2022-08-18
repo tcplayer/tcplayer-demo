@@ -3,6 +3,7 @@ import { Form, Checkbox, Input, Button, Icon, Text, Bubble, Badge } from "@tence
 import QRCode from 'qrcode';
 import { getUrlParameter } from '../util';
 import { checkSupport, IS_MOBILE, IS_IOS } from '../util/browser';
+import { t, Trans } from '@tencent/tea-app/lib/i18n';
 
 function Preview({type = 'webrtc', activeId}) {
   const [url, setUrl] = useState<string>();
@@ -177,44 +178,44 @@ function Preview({type = 'webrtc', activeId}) {
             onChange={(value, context) => {
               setUrl(value);
             }}
-            placeholder="请输入播放地址"
+            placeholder={t("请输入播放地址")}
             onPressEnter={console.log}
           />
         ) : (
           <Form>
       
-            <Form.Item label="超清">
+            <Form.Item label={t("超清")}>
               <Input
                 className="webrtc-input"
                 value={url}
                 onChange={(value, context) => {
                   setUrl(value);
                 }}
-                placeholder="请输入播放地址"
+                placeholder={t("请输入播放地址")}
                 onPressEnter={console.log}
               />
             </Form.Item>
 
-            <Form.Item label="高清">
+            <Form.Item label={t("高清")}>
               <Input
                 className="webrtc-input"
                 value={url_hd}
                 onChange={(value, context) => {
                   setUrlHd(value);
                 }}
-                placeholder="请输入播放地址"
+                placeholder={t("请输入播放地址")}
                 onPressEnter={console.log}
               />
             </Form.Item>
 
-            <Form.Item label="标清">
+            <Form.Item label={t("标清")}>
               <Input
                 className="webrtc-input"
                 value={url_sd}
                 onChange={(value, context) => {
                   setUrlSd(value);
                 }}
-                placeholder="请输入播放地址"
+                placeholder={t("请输入播放地址")}
                 onPressEnter={console.log}
               />
             </Form.Item>
@@ -226,21 +227,21 @@ function Preview({type = 'webrtc', activeId}) {
 
       <section className="clarity-switcher">
         <Checkbox.Group value={clarity} onChange={value => setClarity(value)}>
-          <Checkbox name="clarity">多分辨率切换</Checkbox>
+          <Checkbox name="clarity">{t('多分辨率切换')}</Checkbox>
         </Checkbox.Group>
         <div>
           {
-            type !== 'webrtc' ?  <a href="https://cloud.tencent.com/document/product/266/36451" target="_blank" rel="noreferrer">如何获取点播地址？</a> : null
+            type !== 'webrtc' ?  <a href="https://cloud.tencent.com/document/product/266/36451" target="_blank" rel="noreferrer">{t('如何获取点播地址？')}</a> : null
           }
           {
-            type !== 'mp4' ? <a href="https://cloud.tencent.com/document/product/267/32720" target="_blank" rel="noreferrer">如何获取直播地址？</a> : null
+            type !== 'mp4' ? <a href="https://cloud.tencent.com/document/product/267/32720" target="_blank" rel="noreferrer">{t('如何获取直播地址？')}</a> : null
           }
         </div>
       </section>
 
       <section className="preview-btn">
         <Button onClick={preview} type="primary" className={IS_MOBILE ? 'btn-mobile-preview' : ''}>{
-          !IS_MOBILE ? 'PC 端播放器预览' : '预览'
+          !IS_MOBILE ? t('PC 端播放器预览') : t('预览')
         }</Button>
 
         {
@@ -248,10 +249,10 @@ function Preview({type = 'webrtc', activeId}) {
             <Bubble trigger="click" onVisibleChange={generateQRCode} placement="bottom" content={<>
               <canvas id="canvas"></canvas>
               {
-                type === 'flv' ? (<Text className="qr-tips">不支持iOS端播放</Text>) : null
+                type === 'flv' ? (<Text className="qr-tips">{t('不支持iOS端播放')}</Text>) : null
               }
             </>}>
-              <Button type="primary">移动端播放器预览</Button>
+              <Button type="primary">{t('移动端播放器预览')}</Button>
             </Bubble>
           ) : null
         }
@@ -301,18 +302,18 @@ function Preview({type = 'webrtc', activeId}) {
       {
         tcplayer ? (
           <section className="manipulate-btns">
-            <Button onClick={() => tcplayer?.play()} type="primary">开始/恢复</Button>
-            <Button onClick={() => tcplayer?.pause()}>暂停</Button>
-            <Button onClick={() => tcplayer?.stop()}>停止</Button>
+            <Button onClick={() => tcplayer?.play()} type="primary">{t('开始/恢复')}</Button>
+            <Button onClick={() => tcplayer?.pause()}>{t('暂停')}</Button>
+            <Button onClick={() => tcplayer?.stop()}>{t('停止')}</Button>
             <Button onClick={() => {
               tcplayer?.destroy();
               setTcplayer(null);
-            }}>销毁</Button>
-            <Button onClick={() => tcplayer?.mute(true)}>静音</Button>
-            <Button onClick={() => tcplayer?.mute(false)}>取消静音</Button>
-            <Button onClick={() => tcplayer?.fullscreen(true)}>全屏</Button>
+            }}>{t('销毁')}</Button>
+            <Button onClick={() => tcplayer?.mute(true)}>{t('静音')}</Button>
+            <Button onClick={() => tcplayer?.mute(false)}>{t('取消静音')}</Button>
+            <Button onClick={() => tcplayer?.fullscreen(true)}>{t('全屏')}</Button>
             {
-              type === 'webrtc' ? <Button onClick={() => setShowStat(true)}>统计数据</Button> : null
+              type === 'webrtc' ? <Button onClick={() => setShowStat(true)}>{t('统计数据')}</Button> : null
             }
           </section>
         ) : null

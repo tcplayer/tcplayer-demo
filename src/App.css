@@ -151,11 +151,11 @@
   text-decoration: none;
 }
 
-.top-btns .tea-btn:first-child {
+.top-btns .primary-btn {
   margin-right: 20px;
 }
 
-.top-btns .tea-btn:nth-child(2) {
+.top-btns .secondary-btn {
   background: transparent;
   border: 1px solid #fff;
   color: #fff;

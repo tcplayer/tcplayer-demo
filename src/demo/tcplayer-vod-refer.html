@@ -5,11 +5,10 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport"
         content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
-  <title>腾讯云视频点播示例-refer防盗链</title>
+  <title>Tcplayer Demo</title>
   <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/tcplayer.min.css" rel="stylesheet">
-  <!--如果需要在 Chrome 和 Firefox 等现代浏览器中通过 H5 播放 HLS 格式的视频，需要在 tcplayer.v4.2.min.js 之前引入 hls.min.0.13.2m.js。-->
   <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.2.1/libs/hls.min.0.13.2m.js"></script>
-  <!--播放器脚本文件-->
+
   <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.0/tcplayer.v4.5.0.min.js"></script>
   <style>
     html, body {
@@ -19,7 +18,7 @@
     .tcplayer {
       margin: 0 auto;
     }
-    /* 通过 css 设置播放器尺寸 */
+
     #player-container-id {
       width: 640px;
       height: 360px;
@@ -39,7 +38,7 @@
   </style>
 </head>
 <body>
-<!-- 设置播放器容器 -->
+
 <video id="player-container-id" preload="auto" playsinline webkit-playsinline>
 </video>
 <!--
@@ -51,7 +50,7 @@
 * 设置 x5-playsinline 属性会使用 X5 UI 的播放器
 -->
 <script>
-  var player = TCPlayer('player-container-id', { // player1为播放器容器ID，必须与html中一致
+  var player = TCPlayer("player-container-id", { // player1为播放器容器ID，必须与html中一致
     fileID: '7447398157015849771', // 请传入需要播放的视频filID 必须
     appID: '1256993030',// 请传入点播账号的appID 必须
     flash: {
@@ -60,7 +59,7 @@
   });
   /*
    示例：
-   var player = TCPlayer('player-container-id', {
+   var player = TCPlayer("player-container-id", {
      fileID: '6150355543233037978', // 请传入需要播放的视频filID 必须
      appID: '1253668508', // 请传入点播账号的appID 必须
      flash:{

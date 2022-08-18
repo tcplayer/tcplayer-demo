@@ -3,6 +3,10 @@ import "../App.css";
 import React, { useState, useEffect} from "react";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import PlayPanel from "../components/playPanel";
+import { t, Trans } from '@tencent/tea-app/lib/i18n';
+import { getUrlParameter } from '../util';
+
+
 import {
   Layout,
   NavMenu,
@@ -17,6 +21,8 @@ import {
 
 import { source } from '../demo/index.js';
 import { docs } from '../docs';
+
+console.log('Trans', Trans);
 
 const { Header, Body, Content } = Layout;
 
@@ -34,31 +40,53 @@ function clearIframe(id){
   };
 }} 
 
+
+const modifyLanguage = (string) => {
+  if (window.lang === 'en') {
+    string = string.replace(`var player = TCPlayer("player-container-id", {`, `
+  var player = TCPlayer("player-container-id", {
+    language: "en",`);
+  }
+
+  return string;
+}
+
 function App() {
   const [value, setValue] = useState('play');
   const [code, setCode] = useState(source[value] || '');
+  const type = getUrlParameter('type') || 'play';
+  
 
   const onPreview = ({ url, type, fileID, appID, psign }) => {
     const sourcecode = source[`play${type}`];
     if (type === 'url') {
-      setCode(sourcecode.replace('foo_url', url));
+      setCode(modifyLanguage(sourcecode.replace('foo_url', url)));
     }
 
     if (type === 'fileid') {
-      const sourcecodeNew = sourcecode.replace('foo_fileID', fileID).replace('foo_appID', appID).replace('psign', (psign || ''));
-      setCode(sourcecodeNew);
+      let sourcecodeNew = sourcecode.replace('foo_fileID', fileID).replace('foo_appID', appID).replace('psign', (psign || ''));
+      setCode(modifyLanguage(sourcecodeNew));
     }
   }
+
+  // 
+  useEffect(() => {
+    setValue(type);
+
+
+  }, []);
 
 
   useEffect(() => {
     if (value !== 'play') {
-      setCode(source[value]);
+      setCode(modifyLanguage(source[value]));
     } else {
       // TODO:
     }
     
   }, [value]);
+
+  
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -75,23 +103,33 @@ function App() {
       </Header>
       <Body>
         <section className="top-area">
-          <Text className="top-title">Web端超级播放器体验</Text>
+          <Text className="top-title">{t('Web端超级播放器体验')}</Text>
           <div className="top-btns">
-            <Button type="primary">
-              <a href="https://cloud.tencent.com/document/product/1449/57088" target="_blank" rel="noreferrer">立即使用</a>
+
+            {
+              window.lang === 'zh' ?
+              <Button type="primary" className="primary-btn">
+                <a href="https://cloud.tencent.com/document/product/1449/57088" target="_blank" rel="noreferrer">{t('立即使用')}</a>
+              </Button>
+              : null
+            }
+
+            <Button className="secondary-btn">
+              <a href={window.lang === "en" ? "https://www.tencentcloud.com/document/product/266/33977" : "https://cloud.tencent.com/product/player"} target="_blank" rel="noreferrer">{t('产品文档')}</a>
             </Button>
-            <Button>
-              <a href="https://cloud.tencent.com/product/player" target="_blank" rel="noreferrer">产品文档</a>
-            </Button>
+            
+
           </div>
           <Card className="card card-notice">
             <img src="https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-notice.png" alt=""/>
             <Text>
+              <Trans>
               为了获取更好的产品功能及播放性能体验，建议结合腾讯 
-              <a href="https://cloud.tencent.com/document/product/266/45543" target="_blank" rel="noreferrer">云点播</a>
+              <a href={window.lang === "en" ? "https://www.tencentcloud.com/document/product/266/7836" : "https://cloud.tencent.com/document/product/266/45543" } target="_blank" rel="noreferrer">云点播</a>
               和
-              <a href="https://cloud.tencent.com/product/css" target="_blank" rel="noreferrer">云直播</a>
+              <a href={window.lang === "en" ? "https://www.tencentcloud.com/document/product/267" : "https://cloud.tencent.com/product/css" } target="_blank" rel="noreferrer">云直播</a>
               使用。
+              </Trans>
             </Text>
           </Card>
         </section>
@@ -100,7 +138,7 @@ function App() {
           <Content.Body>
             <Card className="card card-player-function">
               <Form>
-                <Form.Item label="播放器功能">
+                <Form.Item label={t("播放器功能")}>
                   <Segment
                     value={value.toString()}
                     onChange={value => {
@@ -112,34 +150,34 @@ function App() {
                       setValue(value)
                     }}
                     options={[
-                      { text: "视频播放", value: "play" },
-                      { text: "缩略图预览-云端生成文件", value: "vttThumbnail" },
-                      { text: "缩略图预览-手动传入文件", value: "vttThumbnailSrc"},
-                      { text: "字幕", value: "subtitles" },
-                      { text: "事件回调", value: "event" },
-                      { text: "动态水印", value: "dynamicWatermark" },
-                      { text: "贴片广告", value: "poster" },
-                      { text: "进度条标记", value: "progressMarker" },
-                      { text: "DASH 播放", value: "dash" },
-                      { text: "Key 防盗链", value: "key" },
-                      { text: "自适应码流", value: "qualityApi" },
-                      { text: "清晰度切换提示", value: "levelSwitchTips" },
-                      { text: "断点续播", value: "continuePlay" },
-                      { text: "视频轮播", value: "playlist" },
-                      { text: "视频切换", value: "changeFile" },
-                      { text: "试看功能", value: "trial" },
-                      { text: "视频镜像", value: "mirror" },
-                      { text: "提示文案", value: "customError" },
-                      { text: "统计信息", value: "fileStatistic" },
-                      { text: "播放器尺寸", value: "sizeAdaptive" },
-                      { text: "自定义 UI", value: "customUI", },
-                      { text: "倍速播放", value: "playbackRate" },
-                      { text: "多语言", value: "language" },
-                      { text: "多实例", value: "multi" },
+                      { text: t("视频播放"), value: "play" },
+                      { text: t("缩略图预览-云端生成文件"), value: "vttThumbnail" },
+                      { text: t("缩略图预览-手动传入文件"), value: "vttThumbnailSrc"},
+                      { text: t("字幕"), value: "subtitles" },
+                      { text: t("事件回调"), value: "event" },
+                      { text: t("动态水印"), value: "dynamicWatermark" },
+                      { text: t("贴片广告"), value: "poster" },
+                      { text: t("进度条标记"), value: "progressMarker" },
+                      { text: t("DASH 播放"), value: "dash" },
+                      { text: t("Key 防盗链"), value: "key" },
+                      { text: t("自适应码流"), value: "qualityApi" },
+                      { text: t("清晰度切换提示"), value: "levelSwitchTips" },
+                      { text: t("断点续播"), value: "continuePlay" },
+                      { text: t("视频轮播"), value: "playlist" },
+                      { text: t("视频切换"), value: "changeFile" },
+                      { text: t("试看功能"), value: "trial" },
+                      { text: t("视频镜像"), value: "mirror" },
+                      { text: t("提示文案"), value: "customError" },
+                      { text: t("统计信息"), value: "fileStatistic" },
+                      { text: t("播放器尺寸"), value: "sizeAdaptive" },
+                      { text: t("自定义 UI"), value: "customUI", },
+                      { text: t("倍速播放"), value: "playbackRate" },
+                      { text: t("多语言"), value: "language" },
+                      { text: t("多实例"), value: "multi" },
                       
                       { text: (
                         <>
-                          <a href="" target="_blank" rel="noreferrer">更多</a>
+                          <a href="" target="_blank" rel="noreferrer">{t('更多')}</a>
                         </>
                       ), value: "more" },
                       // { text: "HLS 自适应码流播放", value: "hlsMasterplaylist" },

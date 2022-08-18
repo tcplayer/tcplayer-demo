@@ -1,3 +1,4 @@
+import './i18n';
 import React from 'react';
 import {
   BrowserRouter as Router,
@@ -9,6 +10,8 @@ import Tcplayer from './router/tcplayer';
 import TcplayerLite from './router/tcplayerLite.tsx';
 
 new window.VConsole();
+/* eslint-disable no-undef */
+window.lang = LANGUAGE;
 
 ReactDOM.render(
   <React.StrictMode>

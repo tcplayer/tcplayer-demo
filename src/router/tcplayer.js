@@ -130,7 +130,12 @@ function App() {
                     value={value.toString()}
                     onChange={value => {
                       if (value === 'more') {
-                        window.open('https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo');
+                        if (window.lang === 'en') {
+                          window.open('https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo/en');
+                        } else {
+                          window.open('https://github.com/tcplayer/tcplayer-demo/tree/main/src/demo/zh');
+                        }
+                        
                         return false;
                       }
                       clearIframe('previewIframe');
@@ -164,7 +169,7 @@ function App() {
                       
                       { text: (
                         <>
-                          <a href="" target="_blank" rel="noreferrer">{t('更多')}</a>
+                          <span className="more-btn">{t('更多')}</span>
                         </>
                       ), value: "more" },
                       // { text: "HLS 自适应码流播放", value: "hlsMasterplaylist" },

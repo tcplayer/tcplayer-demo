@@ -166,6 +166,11 @@
   color: #fff;
 }
 
+.more-btn {
+  color:#006eff;
+  text-decoration: underline;
+}
+
 .format-tabs {
   text-align: center;
 }

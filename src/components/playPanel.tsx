@@ -4,20 +4,36 @@ import { checkSupport, IS_MOBILE, IS_IOS } from '../util/browser';
 import { t, Trans } from '@tencent/tea-app/lib/i18n';
 import { getUrlParameter } from '../util';
 
+
+
 const playTabs = [
   { id: "url", label: t("URL播放") },
   { id: "fileid", label: t("FileID播放") },
 ];
 
+const sources = {
+  zh: {
+    url: 'https://1500005692.vod2.myqcloud.com/43843706vodtranscq1500005692/62656d94387702300542496289/v.f100240.m3u8',
+    fileID: '387702299186115471',
+    appID: '1500005692',
+  },
+  en: {
+    url: 'https://1500009007.vod2.myqcloud.com/43864de0vodtranscq1500009007/2fb02795387702305297108918/v.f100280.m3u8',
+    fileID: '387702305297108918',
+    appID: '1500009007',
+  }
+}
+
+
 function PlayPanel (props) {
   const [type, setType] = useState(getUrlParameter('playmode') || 'url');
-  const [url, setUrl] = useState<string>(getUrlParameter('url') || 'https://1500005692.vod2.myqcloud.com/43843706vodtranscq1500005692/62656d94387702300542496289/v.f100240.m3u8');
+  const [url, setUrl] = useState<string>(getUrlParameter('url') || sources[window['LANGUAGE']].url);
   const [webrtcSupport, setWebrtcSupport] = useState<boolean>();
   const [h264Support, setH264Support] = useState<boolean>();
 
 
-  const [fileID, setFileID] = useState<string>(getUrlParameter('fileid') || '387702299186115471');
-  const [appID, setAppID] = useState<string>(getUrlParameter('appid') || '1500005692');
+  const [fileID, setFileID] = useState<string>(getUrlParameter('fileid') || sources[window['LANGUAGE']].fileID);
+  const [appID, setAppID] = useState<string>(getUrlParameter('appid') || sources[window['LANGUAGE']].appID);
   const [psign, setPsign] = useState<string>(getUrlParameter('psign') || '');
 
   useEffect(() => {

@@ -2,6 +2,7 @@ import './i18n';
 import React from 'react';
 import {
   BrowserRouter as Router,
+  HashRouter,
   Routes,
   Route,
 } from "react-router-dom";import ReactDOM from 'react-dom';
@@ -15,12 +16,22 @@ window.lang = LANGUAGE;
 
 ReactDOM.render(
   <React.StrictMode>
-    <Router>
-      <Routes>
-        <Route path="/" element={<Tcplayer />} />
-        <Route path="tcplayerlite" element={<TcplayerLite />} />
-      </Routes>
-    </Router>
+    {
+      window.lang === 'en' ? 
+      <HashRouter>
+        <Routes>
+          <Route path="/" element={<Tcplayer />} />
+          <Route path="tcplayerlite" element={<TcplayerLite />} />
+        </Routes>
+      </HashRouter> :
+      <Router>
+        <Routes>
+          <Route path="/" element={<Tcplayer />} />
+          <Route path="tcplayerlite" element={<TcplayerLite />} />
+        </Routes>
+      </Router>
+    }
+        
   </React.StrictMode>,
   document.getElementById('root')
 );

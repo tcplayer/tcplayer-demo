@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+  <title>Tcplayer Demo</title>
+  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.2/tcplayer.min.css" rel="stylesheet">
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.2/libs/hls.min.0.13.2m.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.2/tcplayer.v4.5.2.min.js"></script>
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+    }
+    .tcplayer {
+      margin: 0 auto;
+    }
+
+    #player-container-id {
+      width: 640px;
+      height: 360px;
+    }
+
+    .tip-node {
+      display: flex;
+      align-items: center;
+      position: absolute;
+      bottom: 5em;
+      left: 1em;
+      background: rgba(0, 0, 0, 0.4);
+      border-radius: 4px;
+      padding: 5px 10px;
+
+    }
+
+    .tip-icon-close {
+      width: 14px;
+      height: 14px;
+      display: inline-block;
+      margin-left: 10px;
+      background-image: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-close.png);
+      background-size: cover;
+      cursor: pointer;
+    }
+    
+    .page-node {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      background: #000;
+      z-index: 999;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .page-content {
+      text-align: center;
+    }
+
+    .page-content a{
+      display: flex;
+      width: 120px;
+      height: 28px;
+      border-radius: 14px;
+      color: #663d00;
+      background-image: linear-gradient(90deg,#ffdf89 0,#f2ca5b 100%);
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+      margin: 0 auto;
+    }
+
+    .page-content #replay-btn::before {
+      content: '';
+      width: 12px;
+      height: 12px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-right: 5px;
+      background: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-replay.png);
+      background-size: contain;
+    }
+
+    .page-content #replay-btn {
+      margin: 10px auto 0;
+    }
+
+
+  </style>
+</head>
+<body>
+
+<video id="player-container-id" preload="auto" playsinline webkit-playsinline>
+</video>
+
+<script>
+  var player = TCPlayer("player-container-id", { 
+    fileID: "387702305300799759",
+    appID: "1500006438",
+    psign: "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTUwMDAwNjQzOCwiZmlsZUlkIjoiMzg3NzAyMzA1MzAwNzk5NzU5IiwiY3VycmVudFRpbWVTdGFtcCI6MTY2MTkzMTYwOSwiZXhwaXJlVGltZVN0YW1wIjoyMjMwMDk3OTg5LCJwY2ZnIjoiY29uZmlnRm9ySW50bCIsInVybEFjY2Vzc0luZm8iOnsiZXhwZXIiOjMwLCJ0IjoiMjIzMDA5Nzk4OSJ9fQ._6ssoATB8K_8SWXNVIyQvbVHegSVpI_LIjL9sYnMx9g",
+    autoplay: false,
+  });
+
+  player.one("playing", function() {
+    var tipNode = document.createElement("div");
+    tipNode.innerHTML = "You can try it for 30 seconds, activate VIP to watch the full video";
+    tipNode.className = "tip-node";
+
+    var tipIconClose = document.createElement("i");
+    tipIconClose.className = "tip-icon-close";
+    tipIconClose.onclick = function() {
+      tipNode.remove();
+    }
+  
+    tipNode.appendChild(tipIconClose);
+    player.el_.appendChild(tipNode);
+  });
+
+
+  player.on("ended", function() {
+    var pageNode = document.createElement("div");
+      pageNode.className = "page-node";
+
+      pageNode.innerHTML = `<div class="page-content">
+          <p>The trial is over, VIP members can watch the full video</p>
+          <a href="https://cloud.tencent.com/document/product/881/30818" target="_blank">Open VIP</a>
+          <button id="replay-btn">Replay</button>
+        </div>
+      `;
+      
+      player.el_.appendChild(pageNode);
+
+      document.querySelector('#replay-btn').onclick = function() {
+        player.play();
+        pageNode.remove();
+      };
+  });
+
+</script>
+</body>
+</html>

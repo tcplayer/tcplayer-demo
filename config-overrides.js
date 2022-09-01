@@ -1,10 +1,6 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const webpack = require('webpack');
-
-// const ModuleScopePlugin = require('pnp-webpack-plugin');
-const lang = process.argv.splice(2)[0];
-
-// console.log('env', process.argv.splice(2)[0]);
+const lang = process.argv.splice(2)[0] || 'zh';
 
 module.exports = function override(config, env) {
   config.output.publicPath = './';

@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+  <title>Tcplayer Demo</title>
+  <link href="//imgcache.qq.com/open/qcloud/video/tcplayer/tcplayer.min.css" rel="stylesheet">
+  <script src="//imgcache.qq.com/open/qcloud/video/tcplayer/libs/hls.min.0.13.2m.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.2/tcplayer.v4.5.2.min.js"></script>
+  <style>
+    html,body{
+      margin: 0;
+      padding: 0;
+    }
+    .tcplayer {
+      margin: 0 auto;
+    }
+
+    .tcplayer-theme-custom-ui .vjs-play-progress{
+      background-color: #ff6429;
+    }
+    .tcplayer-theme-custom-ui .vjs-play-control.vjs-playing .vjs-icon-placeholder:before {
+      color: #ff6429;
+    }
+    .tcplayer-theme-custom-ui .vjs-play-control.vjs-ended .vjs-icon-placeholder:before {
+      color: #ff6429;
+    }
+    .tcplayer-theme-custom-ui .vjs-play-control .vjs-icon-placeholder:before {
+      color: #ff6429;
+    }
+    .tcplayer-theme-custom-ui .vjs-volume-panel .vjs-volume-level {
+      background-color: #ff6429;
+    }
+    .tcplayer-theme-custom-ui .vjs-mute-control .vjs-icon-placeholder:before {
+      color: #ff6429;
+    }
+
+  </style>
+</head>
+<body>
+
+<video id="player-container-id" class="tcplayer-theme-custom-ui" preload="auto" width="640" height="360" playsinline webkit-playsinline>
+</video>
+
+<script>
+
+  const Button = TCPlayer.getComponent('Button');
+  const BigPlayButton = TCPlayer.getComponent('BigPlayButton');
+  BigPlayButton.prototype.createEl = function () {
+    var el = Button.prototype.createEl.call(this);
+    let _html = '<button><svg t="1644397862160" class="icon" viewBox="0 0 1024 1024" version="1.1" xmlns="http://www.w3.org/2000/svg" p-id="3095" width="64" height="64"><path d="M298.666667 247.04V682.666667a42.666667 42.666667 0 0 1-85.333334 0V170.666667a42.666667 42.666667 0 0 1 65.024-36.352l554.666667 341.333333a42.666667 42.666667 0 0 1 0 72.704l-554.666667 341.333333a42.666667 42.666667 0 0 1-44.714666-72.704L729.258667 512 298.666667 247.04z" p-id="3096" fill="#ffffff"></path></svg></button>';
+
+    el.appendChild(TCPlayer.dom.createEl('div', {
+      className: 'vjs-button-icon',
+      innerHTML: _html,
+    }));
+    return el;
+  };
+
+  var controlBar = TCPlayer.getComponent('controlBar');
+  controlBar.prototype.options_ = {
+    children: ['playToggle', 'volumePanel', 'currentTimeDisplay', 'timeDivider', 'durationDisplay', 'progressControl', 'liveDisplay', 'remainingTimeDisplay', 'customControlSpacer', 'playbackRateMenuButton', 'chaptersButton', 'descriptionsButton', 'fullscreenToggle']
+  }
+
+  var player = TCPlayer("player-container-id", {
+    fileID: '5285890799710670616',
+    appID: '1400329073',
+    
+  });
+</script>
+</body>
+</html>

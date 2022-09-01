@@ -5,8 +5,6 @@ import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import PlayPanel from "../components/playPanel";
 import { t, Trans } from '@tencent/tea-app/lib/i18n';
 import { getUrlParameter } from '../util';
-
-
 import {
   Layout,
   NavMenu,
@@ -18,12 +16,8 @@ import {
   Text,
   Button,
 } from "@tencent/tea-component";
-
 import { source } from '../demo/index.js';
 import { docs } from '../docs';
-
-console.log('Trans', Trans);
-
 const { Header, Body, Content } = Layout;
 
 function clearIframe(id){
@@ -41,6 +35,7 @@ function clearIframe(id){
 }} 
 
 
+// TODO: 国际站国内站分包之后，国际站默认启用英文，将不需要在此设置语言
 const modifyLanguage = (string) => {
   if (window.lang === 'en') {
     string = string.replace(`var player = TCPlayer("player-container-id", {`, `
@@ -69,24 +64,16 @@ function App() {
     }
   }
 
-  // 
   useEffect(() => {
     setValue(type);
-
-
   }, []);
 
 
   useEffect(() => {
     if (value !== 'play') {
       setCode(modifyLanguage(source[value]));
-    } else {
-      // TODO:
     }
-    
   }, [value]);
-
-  
 
   return (
     <Layout style={{ minHeight: '100vh' }}>
@@ -156,7 +143,7 @@ function App() {
                       { text: t("字幕"), value: "subtitles" },
                       { text: t("事件回调"), value: "event" },
                       { text: t("动态水印"), value: "dynamicWatermark" },
-                      { text: t("贴片广告"), value: "poster" },
+                      // { text: t("贴片广告"), value: "poster" },
                       { text: t("进度条标记"), value: "progressMarker" },
                       { text: t("DASH 播放"), value: "dash" },
                       { text: t("Key 防盗链"), value: "key" },

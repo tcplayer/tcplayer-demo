@@ -59,7 +59,7 @@ function App() {
     }
 
     if (type === 'fileid') {
-      let sourcecodeNew = sourcecode.replace('foo_fileID', fileID).replace('foo_appID', appID).replace('psign', (psign || ''));
+      let sourcecodeNew = sourcecode.replace('foo_fileID', fileID).replace('foo_appID', appID).replace('foo_psign', (psign || ''));
       setCode(modifyLanguage(sourcecodeNew));
     }
   }

@@ -5,9 +5,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
   <title>Tcplayer Demo</title>
-  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.2/tcplayer.min.css" rel="stylesheet">
-  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.2/libs/hls.min.0.13.2m.js"></script>
-  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.2/tcplayer.v4.5.2.min.js"></script>
+  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.4/tcplayer.min.css" rel="stylesheet"/>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.4/libs/TXLivePlayer-1.2.3.min.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.4/libs/hls.min.1.1.5.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.4/libs/flv.min.1.6.3.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.4/libs/dash.all.min.4.4.1.js"></script>
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.5.4/tcplayer.v4.5.4.min.js"></script>
   <style>
     html,body{
       margin: 0;
@@ -30,8 +33,9 @@
 -->
 <script>
   var player = TCPlayer("player-container-id", { 
-    fileID: "7447398157015849771", 
-    appID: "1256993030",
+    fileID: "387702307847129127",
+    appID: "1500006438",
+    psign: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTUwMDAwNjQzOCwiZmlsZUlkIjoiMzg3NzAyMzA3ODQ3MTI5MTI3IiwiY3VycmVudFRpbWVTdGFtcCI6MTY2NzIxNjY1MywiY29udGVudEluZm8iOnsiYXVkaW9WaWRlb1R5cGUiOiJSYXdBZGFwdGl2ZSIsInJhd0FkYXB0aXZlRGVmaW5pdGlvbiI6MTB9LCJleHBpcmVUaW1lU3RhbXAiOjIyMDEwMTEyMDAsInVybEFjY2Vzc0luZm8iOnsiZG9tYWluIjoiMTUwMDAwNjQzOC52b2QyLm15cWNsb3VkLmNvbSIsInNjaGVtZSI6IkhUVFBTIn19.AYqjCMFQlo9nn6EMaF0Nol5vVq9miaoUqyvmFF62aSg',
     plugins:{
       DynamicWatermark: {
         speed: 0.2,

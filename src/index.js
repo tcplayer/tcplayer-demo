@@ -9,6 +9,7 @@ import {
 import './index.css';
 import Tcplayer from './router/tcplayer';
 import TcplayerLite from './router/tcplayerLite.tsx';
+import Experience from './router/experience.tsx';
 
 new window.VConsole();
 /* eslint-disable no-undef */
@@ -22,12 +23,14 @@ ReactDOM.render(
         <Routes>
           <Route path="/" element={<Tcplayer />} />
           <Route path="tcplayerlite" element={<TcplayerLite />} />
+          <Route path="experience" element={<Experience />} />
         </Routes>
       </HashRouter> :
       <Router>
         <Routes>
           <Route path="/" element={<Tcplayer />} />
           <Route path="tcplayerlite" element={<TcplayerLite />} />
+          <Route path="experience" element={<Experience />} />
         </Routes>
       </Router>
     }

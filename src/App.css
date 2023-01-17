@@ -161,7 +161,6 @@
   color: #fff;
 }
 
-
 .top-btns .tea-btn a {
   color: #fff;
 }
@@ -177,6 +176,26 @@
 
 .format-tabs .tea-tabs__tabitem {
   min-width: 120px;
+}
+
+.tea-segment .tea-btn {
+  border: 0;
+  margin-top: 4px;
+}
+
+.tea-segment .tea-btn.is-selected {
+  border-radius: 4px!important;
+  background: #DDECFF;
+  color: #1B79F9;
+  border: 0;
+}
+
+.tea-segment .tea-btn:hover {
+  border-radius: 4px!important;
+  background: #DDECFF!important;
+  color: #1B79F9;
+  border: 0;
+  border-style: none;
 }
 
 .card {
@@ -289,3 +308,5 @@
   height: 360px;
   margin: 0 20px 0 0;
 }
+
+

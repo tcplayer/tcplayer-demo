@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+  <title>Tcplayer Demo</title>
+  <!--播放器样式文件-->
+  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.7.2/tcplayer.min.css" rel="stylesheet"/>
+  <!--播放器脚本文件-->
+  <script src="https://web.sdk.qcloud.com/player/tcplayer/release/v4.7.2/tcplayer.v4.7.2.min.js"></script>
+  <style>
+    html,body{
+      margin: 0;
+      padding: 0;
+    }
+    .tcplayer {
+      margin: 0 auto;
+    }
+  </style>
+</head>
+<body>
+
+<video id="player-container-id" preload="auto" width="640" height="360" playsinline webkit-playsinline>
+</video>
+
+<script>
+  var player = TCPlayer("player-container-id", { 
+    fileID: "5287852109848147251",
+    appID: "1500013788",
+    psign: 'eyJhbGciOiJIUzI1NiJ9.eyJhcHBJZCI6MTUwMDAxMzc4OCwiZmlsZUlkIjoiNTI4Nzg1MjEwOTg0ODE0NzI1MSIsImN1cnJlbnRUaW1lU3RhbXAiOjE2NDg1NTc5MTksImV4cGlyZVRpbWVTdGFtcCI6MjY0ODU1NzkxOSwiY29udGVudEluZm8iOnsiYXVkaW9WaWRlb1R5cGUiOiJQcm90ZWN0ZWRBZGFwdGl2ZSIsImRybUFkYXB0aXZlSW5mbyI6eyJwcml2YXRlRW5jcnlwdGlvbkRlZmluaXRpb24iOjEyfX0sIkRybUxpY2Vuc2VJbmZvIjp7IkV4cGlyZVRpbWVTdGFtcCI6MTc2MDk5NTE3MH19.8E-ksDWp2hEd2S4CZeopwEZDroOyEUoinSGZBcGZSus',
+    plugins:{
+      DynamicWatermark: {
+        ghostOn: true, // 开启幽灵水印
+      }
+    }
+  });
+
+</script>
+</body>
+</html>

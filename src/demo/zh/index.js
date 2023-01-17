@@ -15,6 +15,7 @@ import vttThumbnail from './tcplayer-vod-vtt-thumbnail.html';
 import mirror from './tcplayer-vod-mirror.html';
 import event from './tcplayer-vod-event.html';
 import dynamicWatermark from './tcplayer-vod-dynamic-watermark.html';
+import ghostWatermark from './tcplayer-vod-ghost-watermark.html';
 import dash from './tcplayer-vod-base-v4-dash.html';
 import qualityApi from './tcplayer-vod-base-v4-quality-api.html';
 import fileStatistic from './tcplayer-vod-change-file-statistic.html';
@@ -45,6 +46,7 @@ export const source = {
   mirror,
   event,
   dynamicWatermark,
+  ghostWatermark,
   dash,
   qualityApi,
   fileStatistic,

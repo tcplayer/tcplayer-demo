@@ -256,7 +256,7 @@ function App() {
                     rimless={true}
                     options={[
                       { text: t("动态水印"), value: "dynamicWatermark" },
-                      { text: t("幽灵水印"), value: "ghostWatermark" },
+                      // { text: t("幽灵水印"), value: "ghostWatermark" },
                       { text: t("Key 防盗链"), value: "key" },
                     ]}>
                   </Segment>

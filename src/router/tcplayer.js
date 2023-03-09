@@ -29,9 +29,6 @@ import '../index.css';
 // import 'tcplayer.js/dist/tcplayer.min.css';
 
 const { Header, Body, Content } = Layout;
-
-
-
 const flexStyle = {display: 'flex', justifyContent: 'space-around', alignItems: 'center'};
 const labelStyle = { width: '16px', height: '16px', marginRight: '6px' };
 

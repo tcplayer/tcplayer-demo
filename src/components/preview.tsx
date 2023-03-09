@@ -17,7 +17,6 @@ function Preview({type = 'webrtc', activeId}) {
   const [webrtcSupport, setWebrtcSupport] = useState<boolean>();
   const [h264Support, setH264Support] = useState<boolean>();
 
-
   useEffect(() => {
     const url = getUrlParameter('url');
     const url_sd = getUrlParameter('url_sd');

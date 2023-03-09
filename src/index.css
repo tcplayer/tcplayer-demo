@@ -1,1 +1,81 @@
+.flex {
+  display: flex;
+}
+
+.inline-block {
+  display: inline-block;
+}
+
+.mgrb10 {
+  margin-bottom: 10px;
+}
+
+.function-btn {
+  display: inline-block;
+  margin: 12px 12px 0 0;
+  height: 28px;
+  border-radius: 4px;
+  border: 1px solid #e7ebf8;
+  background-color: #fff;
+}
+
+.function-btn:active {
+  background-color: #E7EBF8;
+  color: #1b79f9;
+}
+.m-function-select-panel {
+  padding: 16px;
+}
+.m-function-select-panel section {
+  margin-bottom: 16px;
+}
+
+.m-function-select-panel section button {
+  border: 1px solid #e7ebf8ff!important;
+  border-radius: 2px!important;
+  display: flex;
+  align-items: center;
+
+}
+
+.m-function-select-panel .tea-segment .tea-btn {
+  margin-right: 12px!important;
+}
+
+
+.m-desc-panel {
+  position: relative;
+  padding: 0 16px 16px;
+  border-bottom: 1px solid #e7ebf8ff;
+}
+
+.m-desc-panel .desc-switch {
+  position: absolute;
+  top: 20px;
+  right: 16px;
+  display: flex;
+}
+
+.m-desc-panel.desc-hide {
+  padding-bottom: 6px;
+}
+
+.m-desc-panel .tea-list {
+  color: #666666ff;
+}
+
+
+.m-desc-panel.desc-hide .tea-list {
+  display: none;
+}
+
+.m-desc-panel .arrowup, .m-desc-panel.desc-hide .arrowdown {
+  display: inline-block;
+}
+
+.m-desc-panel .arrowdown, .m-desc-panel.desc-hide .arrowup {
+  display: none;
+}
+
+
 

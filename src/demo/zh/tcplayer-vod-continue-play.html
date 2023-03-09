@@ -16,16 +16,17 @@
     .tcplayer {
       margin: 0 auto;
     }
-
-    #player-container-id {
-      width: 640px;
-      height: 360px;
+    @media screen and (max-width: 480px) {
+      #player-container-id {
+        width: 100%;
+        height: 240px;
+      }
     }
   </style>
 </head>
 <body>
 
-<video id="player-container-id" width="414" height="270" playsinline webkit-playsinline>
+<video id="player-container-id" width="640" height="360" playsinline webkit-playsinline>
 </video>
 
 <script>

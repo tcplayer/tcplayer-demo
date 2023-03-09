@@ -22,6 +22,7 @@ import {
 } from "@tencent/tea-component";
 import { source } from '../demo/index.js';
 import { docs } from '../docs';
+import { IS_MOBILE } from '../util/browser.ts';
 import IframeCommunication from '../libs/iframe';
 import '../index.css';
 
@@ -29,8 +30,6 @@ import '../index.css';
 // import 'tcplayer.js/dist/tcplayer.min.css';
 
 const { Header, Body, Content } = Layout;
-
-
 
 const flexStyle = {display: 'flex', justifyContent: 'space-around', alignItems: 'center'};
 const labelStyle = { width: '16px', height: '16px', marginRight: '6px' };
@@ -61,24 +60,36 @@ const modifyLanguage = (string) => {
   return string;
 }
 
+// http://localhost:3000/?type=playurl&autoplay=true&url=http://1500005692.vod2.myqcloud.com/6c9a495evodcq1500005692/55c68124243791579374039499/icRVCAWqxZcA.mp4
+
 function App() {
-  const [value, setValue] = useState('playurl');
+  const [value, setValue] = useState(getUrlParameter('type') || 'playurl');
   const [code, setCode] = useState(source[value] || '');
+
+  console.log('sourcesource', source, value);
   const type = getUrlParameter('type') || 'playurl';
   const [communication, setCommunication] = useState();
-  
+
+  const [url, setUrl] = useState();
+  const [fileID, setFileID] = useState();
+  const [appID, setAppID] = useState();
+  const [psign, setPsign] = useState();
+
 
   const onPreview = ({ url, type, fileID, appID, psign }) => {
     const sourcecode = source[`play${type}`];
     if (type === 'url') {
-
       console.log('代码：', sourcecode.replace('foo_url', url));
+      setUrl(url);
       setTimeout(() => {
         setCode(modifyLanguage(sourcecode.replace('foo_url', url)));
       }, 100);
     }
 
     if (type === 'fileid') {
+      setFileID(fileID);
+      setAppID(appID);
+      setPsign(psign);
       let sourcecodeNew = sourcecode.replace('foo_fileID', fileID).replace('foo_appID', appID).replace('foo_psign', (psign || ''));
       setTimeout(() => {
         setCode(modifyLanguage(sourcecodeNew));
@@ -86,9 +97,38 @@ function App() {
     }
   }
 
+
+
+  // 切换说明面板
+  const switchDesc = () => {
+    const panel = document.querySelector('.m-desc-panel');
+    const panelClassName = panel.className;
+    console.log(panelClassName);
+    if (panel && panelClassName.indexOf('desc-hide') > -1) {
+      panel.className = 'm-desc-panel';
+    } else {
+      panel.className = 'm-desc-panel desc-hide';
+    }
+  }
+
+
+  // 切换功能
   const switchFunc = (value) => {
     clearIframe('previewIframe');
     setValue(value);
+
+    let qrcodeAddress = `https://tcplayer.vcube.tencent.com/experience-center/build/index.html?type=${value}`;
+    if (value === 'playurl') {
+      qrcodeAddress += `&url=${url}`;
+    }
+
+    if (value === 'playfileid') {
+      qrcodeAddress += `&fileID=${fileID}&appID=${appID}&psign=${psign}`;
+    }
+
+    communication.sendMessage('player', {
+      url: qrcodeAddress,
+    });
 
     switch(value) { 
       case 'playurl':
@@ -151,10 +191,166 @@ function App() {
   //     appID: '1306264703',
   //     psign: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTMwNjI2NDcwMywiZmlsZUlkIjoiMjQzNzkxNTc2OTQzMDcyNjQ3IiwiY3VycmVudFRpbWVTdGFtcCI6MTY3MDQ2OTk3MSwiY29udGVudEluZm8iOnsiYXVkaW9WaWRlb1R5cGUiOiJQcm90ZWN0ZWRBZGFwdGl2ZSIsImRybUFkYXB0aXZlSW5mbyI6eyJwcml2YXRlRW5jcnlwdGlvbkRlZmluaXRpb24iOjEyfX0sInVybEFjY2Vzc0luZm8iOnsiZG9tYWluIjoiMTMwNjI2NDcwMy52b2QyLm15cWNsb3VkLmNvbSIsInNjaGVtZSI6IkhUVFBTIn19.FOcmChHfrGY9tYCDn20MSQi-IqvQ9U_U6qLNgx9MhLg',
   //   }); // player-container-id 为播放器容器 ID，必须与 html 中一致
-
   // }, [])
 
   const experienceMode = 'none';
+  // console.log('code', code);
+
+  if (IS_MOBILE) {
+    return (
+      <>
+        <iframe
+          id="previewIframe"
+          title="previewIframe"
+          srcDoc={code}
+          frameBorder="0"
+          width="100%"
+          height="240px"
+          allowFullScreen={true}
+          style={{background: '#bdbdbd'}}
+        ></iframe>
+
+
+
+        <section className="m-desc-panel desc-hide">
+          {
+            docs[value] ? (
+              <>
+                <span className="desc-switch" onClick={switchDesc}>
+                  说明
+                  <Icon className="arrowup" type="arrowup" />
+                  <Icon className="arrowdown" type="arrowdown" />
+                </span>
+                <div>{docs[value]}</div>
+              </>
+            ) : null
+          }
+        </section>
+
+        <div className="m-function-select-panel">
+          <section>
+            <div className="flex">
+              <img id="icon-play" style={labelStyle} alt="" src="https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/experience-center/assets/icon-play.png" />
+              <H5 className="inline-block mgrb10">{t('视频播放')}</H5>
+            </div>
+            <div>
+              <Segment
+                value={value.toString()}
+                onChange={switchFunc}
+                rimless={true}
+                options={[
+                  { text: t('URL 播放'), value: 'playurl' },
+                  { text: t('FileID 播放'), value: 'playfileid' },
+                  { text: t("自适应码流"), value: "qualityApi" },
+                  { text: t("DASH 播放"), value: "dash" },
+                ]}>
+              </Segment>
+            </div>
+          </section>
+
+          <section>
+            <div className="flex">
+              <img id="icon-control" style={labelStyle} alt="" src="https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/experience-center/assets/icon-control.png" />
+              <H5 className="inline-block mgrb10">{t('播放控制')}</H5>
+            </div>
+
+
+            <div>
+              <Segment
+                value={value.toString()}
+                onChange={switchFunc}
+                rimless={true}
+                options={[
+                  { text: t("缩略图预览-云端生成文件"), value: "vttThumbnail" },
+                  { text: t("缩略图预览-手动传入文件"), value: "vttThumbnailSrc"},
+                  { text: t("字幕"), value: "subtitles" },
+                  { text: t("事件回调"), value: "event" },
+                ]}>
+              </Segment>
+            </div>
+          </section>
+
+          <section>
+            <div className="flex">
+              <img id="icon-safety" style={labelStyle} alt="" src="https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/experience-center/assets/icon-safety.png" />
+              <H5 className="inline-block mgrb10">{t('视频安全')}</H5>
+            </div>
+
+
+            <div>
+              <Segment
+                value={value.toString()}
+                onChange={switchFunc}
+                rimless={true}
+                options={[
+                  { text: t("动态水印"), value: "dynamicWatermark" },
+                  // { text: t("幽灵水印"), value: "ghostWatermark" },
+                  { text: t("Key 防盗链"), value: "key" },
+                ]}>
+              </Segment>
+            </div>
+          </section>
+
+          <section>
+            <div className="flex">
+              <img id="icon-display" style={labelStyle} alt="" src="https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/experience-center/assets/icon-display.png" />
+              <H5 className="inline-block mgrb10">{t('显示效果')}</H5>
+            </div>
+
+
+            <div>
+              <Segment
+                value={value.toString()}
+                onChange={switchFunc}
+                rimless={true}
+                options={[
+                  { text: t("贴片广告"), value: "poster" },
+                  { text: t("视频镜像"), value: "mirror" },
+                  { text: t("提示文案"), value: "customError" },
+                  { text: t("播放器尺寸"), value: "sizeAdaptive" },
+                  { text: t("自定义 UI"), value: "customUI", },
+                  { text: t("多实例"), value: "multi" },
+                  { text: t("多语言"), value: "language" },
+                ]}>
+              </Segment>
+            </div>
+          </section>
+
+          <section>
+            <div className="flex">
+              <img id="icon-display" style={labelStyle} alt="" src="https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/experience-center/assets/icon-display.png" />
+              <H5 className="inline-block mgrb10">{t('播放统计')}</H5>
+            </div>
+
+            <div>
+              <Segment
+                value={value.toString()}
+                onChange={switchFunc}
+                rimless={true}
+                options={[
+                  { text: t("统计信息"), value: "fileStatistic" },
+                ]}>
+              </Segment>
+            </div>
+          </section>
+
+        <div style={{ opacity: 0, position: 'absolute', bottom: '0'}}>
+          {
+            value === 'playurl' ? <>
+              <PlayPanel key="playurl" onPreview={onPreview} type="url"></PlayPanel>
+            </> : null
+          }
+
+          {
+            value === 'playfileid' ? <>
+              <PlayPanel key="playfileid" onPreview={onPreview} type="fileid"></PlayPanel>
+            </> : null
+          }
+        </div>
+        </div>
+      </>
+    )
+  }
 
   console.log('要渲染的code', code);
   return (

@@ -7,8 +7,8 @@ import { getUrlParameter } from '../util';
 
 
 const playTabs = [
-  { id: "url", label: t("URL播放") },
-  { id: "fileid", label: t("FileID播放") },
+  { id: "url", label: t("URL 播放") },
+  { id: "fileid", label: t("FileID 播放") },
 ];
 
 const sources = {
@@ -27,7 +27,6 @@ const sources = {
 
 
 function PlayPanel (props) {
-  console.log('props.type', props.type);
   const [type, setType] = useState(getUrlParameter('playmode') || props.type || 'url');
   const [url, setUrl] = useState<string>(getUrlParameter('url') || sources[window['LANGUAGE']].url);
   const [webrtcSupport, setWebrtcSupport] = useState<boolean>();
@@ -46,13 +45,11 @@ function PlayPanel (props) {
     }
 
     support();
-    // preview();
   }, []);
 
   useEffect(() => {
     preview();
   }, [type]);
-
 
   const preview = () => {
     if (type === 'fileid') {
@@ -80,7 +77,6 @@ function PlayPanel (props) {
   }
 
   return <div style={{ padding: '20px' }}>
-
   {
     type === 'fileid' ? <>
       <Text reset>fileID:</Text>

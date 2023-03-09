@@ -63,10 +63,8 @@ const modifyLanguage = (string) => {
 // http://localhost:3000/?type=playurl&autoplay=true&url=http://1500005692.vod2.myqcloud.com/6c9a495evodcq1500005692/55c68124243791579374039499/icRVCAWqxZcA.mp4
 
 function App() {
-  const [value, setValue] = useState(getUrlParameter('type') || 'playurl');
+  const [value, setValue] = useState(getUrlParameter('type'));
   const [code, setCode] = useState(source[value] || '');
-
-  console.log('sourcesource', source, value);
   const type = getUrlParameter('type') || 'playurl';
   const [communication, setCommunication] = useState();
 
@@ -156,13 +154,10 @@ function App() {
     }
   };
 
-  useEffect(() => {
-    setValue(type);
-  }, []);
 
-  
+  // 
   useEffect(() => {
-    if (value !== 'play') {
+    if (value !== 'playurl' && value !== 'playfileid') {
       setCode(modifyLanguage(source[value]));
     }
   }, [value]);

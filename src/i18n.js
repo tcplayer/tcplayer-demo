@@ -1,7 +1,7 @@
 // 导入依赖
 import { i18n } from '@tencent/tea-app';
 // 导入词条
-import { zh, en } from '../i18n/translation';
+import { zh, en } from './i18n/translation';
 /* eslint-disable no-undef */
 window["LANGUAGE"] = LANGUAGE;
 // 初始化国际化词条

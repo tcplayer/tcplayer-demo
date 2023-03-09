@@ -324,10 +324,41 @@ const dash = <Row>
   <Col>
     <Title>{t('DASH 播放')}</Title>
     <List type="bullet">
-
+      <List.Item>{t('播放 DASH 自适应码流文件时，播放清晰度将默认采用自动切换逻辑，此时播放器将根据当前带宽，动态选择最合适的码率播放。')}</List.Item>
     </List>
   </Col>
 </Row>
+
+const customUI = <Row>
+  <Col>
+    <Title>{t('自定义 UI')}</Title>
+    <List type="bullet">
+      <List.Item>{t('播放 DASH 自适应码流文件时，播放清晰度将默认采用自动切换逻辑，此时播放器将根据当前带宽，动态选择最合适的码率播放。')}</List.Item>
+    </List>
+  </Col>
+</Row>
+
+const multi = <Row>
+  <Col>
+    <Title>{t('多实例')}</Title>
+    <List type="bullet">
+      <List.Item>{t('允许在一个页面创建多个播放器实例。')}</List.Item>
+    </List>
+  </Col>
+</Row>
+
+const language = <Row>
+  <Col>
+    <Title>{t('多语言')}</Title>
+    <List type="bullet">
+      <List.Item>{t('支持多种语言。')}</List.Item>
+    </List>
+  </Col>
+</Row>
+
+
+
+
 
 
 export const docs = {
@@ -351,5 +382,8 @@ export const docs = {
   event,
   playurl,
   playfileid,
-  dash
+  dash,
+  customUI,
+  multi,
+  language,
 } 

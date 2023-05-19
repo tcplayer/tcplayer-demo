@@ -11,9 +11,10 @@ import Tcplayer from './router/tcplayer';
 import TcplayerLite from './router/tcplayerLite.tsx';
 import Experience from './router/experience.tsx';
 
-if (window.VConsole) {
-  new window.VConsole();
-}
+
+// if (window.VConsole) {
+//   new window.VConsole();
+// }
 
 /* eslint-disable no-undef */
 window.lang = LANGUAGE;

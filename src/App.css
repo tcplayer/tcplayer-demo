@@ -278,6 +278,13 @@
   height: 360px;
 }
 
+@media screen and (max-width: 480px) {
+  #player-container-id {
+    width: 100%;
+    height: 240px;
+  }
+}
+
 .tea-code {
   position: relative;
   width: calc(100% - 640px - 20px);
@@ -310,3 +317,68 @@
 }
 
 
+/* poster */
+.vjs-poster {
+  width: 100%;
+  left: 50%!important;
+  top: 50%!important;
+  transform: translate(-50%, -50%);
+  display: flex!important;
+  justify-content: space-between;
+}
+.ad-text-node {
+  background: rgba(255, 255, 255, 0.2);
+  width: 44px;
+  height: 23px;
+  margin: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 10px;
+  font-size: 12px;
+}
+.ad-close-icon-node {
+  width: 14px;
+  height: 14px;
+  display: inline-block;
+  margin-left: 10px;
+  background-image: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-close.png);
+  background-size: cover;
+  cursor: pointer;
+  margin: 6px;
+}
+
+
+/* sizeadaptive */
+
+#wrap {
+  width: 80%;
+  margin: 0 auto;
+}
+
+
+/* customui */
+
+.tcplayer-theme-custom-ui .vjs-play-progress{
+  background-color: #ff6429;
+}
+.tcplayer-theme-custom-ui .vjs-play-control.vjs-playing .vjs-icon-placeholder:before {
+  color: #ff6429;
+}
+.tcplayer-theme-custom-ui .vjs-play-control.vjs-ended .vjs-icon-placeholder:before {
+  color: #ff6429;
+}
+.tcplayer-theme-custom-ui .vjs-play-control .vjs-icon-placeholder:before {
+  color: #ff6429;
+}
+.tcplayer-theme-custom-ui .vjs-volume-panel .vjs-volume-level {
+  background-color: #ff6429;
+}
+.tcplayer-theme-custom-ui .vjs-mute-control .vjs-icon-placeholder:before {
+  color: #ff6429;
+}
+
+
+#player-container-id1 {
+  margin-bottom: 5px;
+}

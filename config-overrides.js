@@ -1,7 +1,7 @@
 const MonacoWebpackPlugin = require('monaco-editor-webpack-plugin');
 const webpack = require('webpack');
-// const lang = (process && process.argv.splice(2)[0]) || 'zh';
-const lang = 'zh';
+const yargs = require('yargs-parser');
+const argv = yargs(process.argv.slice(2))
 
 module.exports = function override(config, env) {
   config.output.publicPath = './';
@@ -17,7 +17,7 @@ module.exports = function override(config, env) {
   }));
 
   config.plugins.push(new webpack.DefinePlugin({
-    LANGUAGE: JSON.stringify(lang),
+    CONFIGS: JSON.stringify(argv),
   }));
 
   return config;

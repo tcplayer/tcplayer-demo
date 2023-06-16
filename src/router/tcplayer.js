@@ -30,6 +30,9 @@ import '../index.css';
 import TCPlayer from 'tcplayer.js';
 import 'tcplayer.js/dist/tcplayer.min.css';
 
+import crypto from 'crypto-browserify';
+console.log('crypto', crypto.createHmac);
+
 const { Header, Body, Content } = Layout;
 const flexStyle = {display: 'flex', justifyContent: 'space-around', alignItems: 'center'};
 const labelStyle = { width: '16px', height: '16px', marginRight: '6px' };
@@ -323,6 +326,15 @@ function App() {
 
   }, [value]);
 
+
+  // useEffect(() => {
+  //   var player = TCPlayer("player-container-id", {
+  //     fileID: '243791578352524576',
+  //     appID: '1500005033',
+  //     psign: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTUwMDAwNTAzMywiZmlsZUlkIjoiMjQzNzkxNTc4MzUyNTI0NTc2IiwiY29udGVudEluZm8iOnsiYXVkaW9WaWRlb1R5cGUiOiJQcm90ZWN0ZWRBZGFwdGl2ZSIsImltYWdlU3ByaXRlRGVmaW5pdGlvbiI6MTAsImRybUFkYXB0aXZlSW5mbyI6eyJwcml2YXRlRW5jcnlwdGlvbkRlZmluaXRpb24iOjE0MzM3OTZ9fSwiY3VycmVudFRpbWVTdGFtcCI6MTY4NDk5NzM0MywiZXhwaXJlVGltZVN0YW1wIjoxNjg1MDAwOTQzLCJ1cmxBY2Nlc3NJbmZvIjp7InQiOiI2NDZmMTJlZiJ9fQ.CT5iiBAGvVbQp-OwBkVSHHS-roFV-t5CIgA9Vq5GQXg',
+  //   });
+  // }, []);
+
   
   const generateMobileVideoDom = () => {
     if (!IS_IOS) {
@@ -339,7 +351,7 @@ function App() {
     }
   }
 
-  const experienceMode = 'none';
+  const experienceMode = 'block';
 
   if (IS_MOBILE) {
     return (
@@ -422,6 +434,7 @@ function App() {
                 rimless={true}
                 options={[
                   { text: t("动态水印"), value: "dynamicWatermark" },
+                  // { text: t("幽灵水印"), value: "ghostWatermark" },
                   { text: t("Key 防盗链"), value: "key" },
                 ]}>
               </Segment>
@@ -525,8 +538,7 @@ function App() {
         <Content style={{background: 'transparent'}}>
           <Content.Body>
 
-          {/* <video id="player-container-id" width="414" height="270" preload="auto" playsinline webkit-playsinline>
-          </video> */}
+
             <Card className="card card-player-function" style={{ borderRadius: '8px'}}>
               <H3>{t('请选择视频播放功能进行体验')}</H3>
               <br />

@@ -356,10 +356,17 @@ const language = <Row>
   </Col>
 </Row>
 
-
-
-
-
+const ghostWatermark = <Row>
+<Col>
+  <Title>{t('幽灵水印')}</Title>
+  <List type="bullet">
+    <List.Item>
+      <Text>{t('幽灵水印是动态水印的一种形式，更加安全和隐蔽，可以参考')}</Text>
+      <a href="https://cloud.tencent.com/document/product/266/94228" target="_blank" rel="noreferrer">{t('文档')}</a>
+    </List.Item>
+  </List>
+</Col>
+</Row>
 
 export const docs = {
   sizeAdaptive,
@@ -386,4 +393,5 @@ export const docs = {
   customUI,
   multi,
   language,
+  ghostWatermark
 } 

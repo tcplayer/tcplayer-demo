@@ -1,0 +1,240 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no">
+  <title>腾讯云视频点播示例</title>
+  <link href="https://web.sdk.qcloud.com/player/tcplayer/release/v4.7.2/tcplayer.min.css" rel="stylesheet"/>
+  <script src="https://testmig-1306264703.cos.ap-guangzhou.myqcloud.com/wm/Pseudolive/tcplayer.v4.7.1.min.js"></script>
+
+  <!-- <script src="http://10.21.2.77:8081/dist/tcplayer.v4.7.2.js"></script> -->
+  <script src="https://webrtc-demo.myqcloud.com/pull-sdk/js/vconsole.min.js"></script>
+
+
+ 
+  <style>
+    html,body{
+      margin: 0;
+      padding: 0;
+    }
+    .tcplayer {
+      margin: 0 auto;
+    }
+
+    #player-container-id {
+      /* display: none; */
+    }
+
+    #__vconsole .vc-panel {
+      min-height: 55%!important;
+    }
+
+    @media screen and (max-width: 640px) {
+      #player-container-id {
+        width: 100%;
+        height: 240px;
+      }
+    }
+    /* 设置logo在高分屏的显示样式 */
+    @media only screen and (min-device-pixel-ratio: 2), only screen and (-webkit-min-device-pixel-ratio: 2) {
+      .tcp-logo-img {
+        width: 50%;
+      }
+    }
+  </style>
+</head>
+<body>
+<!-- 设置播放器容器 -->
+
+<!-- <video controls width="600" height="300">
+  <source src="https://1306264703.vod2.myqcloud.com/2d7f1c8avodtranscq1306264703/f3164b9b243791576943072647/voddrm.token.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9~eyJ0eXBlIjoiRHJtVG9rZW4iLCJhcHBJZCI6MTMwNjI2NDcwMywiZmlsZUlkIjoiMjQzNzkxNTc2OTQzMDcyNjQ3IiwiY3VycmVudFRpbWVTdGFtcCI6MCwiZXhwaXJlVGltZVN0YW1wIjoyMTQ3NDgzNjQ3LCJyYW5kb20iOjAsIm92ZXJsYXlLZXkiOiIiLCJvdmVybGF5SXYiOiIiLCJjaXBoZXJlZE92ZXJsYXlLZXkiOiIiLCJjaXBoZXJlZE92ZXJsYXlJdiI6IiIsImtleUlkIjoxLCJzdHJpY3RNb2RlIjowfQ~Km4aQHJ-C6R9PcNIFHt7K8pmkckaR-b7C5Ok3ZXZrZw.adp.12.m3u8"></source>
+</video> -->
+
+<video controls="false" id="player-container-id" preload="auto" width="740" height="360" playsinline webkit-playsinline>
+</video>
+
+<button id="reset">重置</button>
+<button id="pause">暂停</button>
+<button id="recover">恢复</button>
+
+
+<!--
+注意事项：
+* 播放器容器必须为 video 标签
+* player-container-id 为播放器容器的ID，可自行设置
+* 播放器区域的尺寸请按需设置，建议通过 css 进行设置，通过css可实现容器自适应等效果
+* playsinline webkit-playsinline 这几个属性是为了在标准移动端浏览器不劫持视频播放的情况下实现行内播放，此处仅作示例，请按需使用
+* 设置 x5-playsinline 属性会使用 X5 UI 的播放器
+-->
+<script>
+try {
+
+  
+  
+
+  var vConsole = new VConsole();
+  var playTime = 0;
+  var prePlayTime = localStorage.getItem('playTime') || 0;
+
+
+
+  var player = TCPlayer('player-container-id', { // player-container-id 为播放器容器ID，必须与html中一致
+    autoplay: true,
+
+    // controlBar: {
+    //   currentTimeDisplay: false,
+    //   durationDisplay: false,
+    //   timeDivider: false,
+    // },
+  });
+
+
+  // 根据 ua 判断是否为被劫持环境，如果处于被劫持环境，执行伪直播方案，否则执行普通的禁用拖拽方案
+  // 获取plive，这里的伪直播地址算法仅作测试，在生产环境可参考文档，结合防盗链来使用
+
+  function getPlive(time = 0) {
+    // TODO:从服务端获取时间，不要本地计算，本地时间不一定准确
+    // 当前时间 - 已经播放的时长 + 冗余控制时长
+    console.log('time', time);
+    var cur = Math.floor((new Date().getTime() - time * 1000) / 1000);
+    console.log('cur', cur);
+    return Number(cur).toString(16);
+  }
+
+  function getUrl(time) {
+    var url = 'https://1500005692.vod2.myqcloud.com/43843706vodtranscq1500005692/42dc4932387702305935442573/voddrm.token.eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9~eyJ0eXBlIjoiRHJtVG9rZW4iLCJhcHBJZCI6MTUwMDAwNTY5MiwiZmlsZUlkIjoiMzg3NzAyMzA1OTM1NDQyNTczIiwiY3VycmVudFRpbWVTdGFtcCI6MCwiZXhwaXJlVGltZVN0YW1wIjoyMTQ3NDgzNjQ3LCJyYW5kb20iOjAsIm92ZXJsYXlLZXkiOiIiLCJvdmVybGF5SXYiOiIiLCJjaXBoZXJlZE92ZXJsYXlLZXkiOiIiLCJjaXBoZXJlZE92ZXJsYXlJdiI6IiIsImtleUlkIjoxLCJzdHJpY3RNb2RlIjowLCJwZXJzaXN0ZW50IjoiIiwicmVudGFsRHVyYXRpb24iOjAsImZvcmNlTDFUcmFja1R5cGVzIjpudWxsfQ~dEK3A_KCD2cIiFX5kNdZjhC1VjVNACj8S23u94Ievps.adp.12.m3u8?plive=' + getPlive(+time);
+    console.log('url', url);
+    return url;
+  }
+
+  function init() {
+    player.src(getUrl(prePlayTime));
+    player.ready(function() {
+      bindEvent();
+    });
+  }
+
+  function reset() {
+    playTime = 0;
+    localStorage.removeItem('playTime');
+  }
+
+  function breakPlayback() {
+    player.pause(); // 仅暂停
+    // player.tech_.hlsProvider.hls.stopLoad() // 断流
+    localStorage.setItem('playTime', +playTime + +prePlayTime);
+    console.log('total Time', +playTime + +prePlayTime);
+  }
+
+  function recoverPlayback() {
+
+
+    console.log('recoverplayback');
+    prePlayTime = localStorage.getItem('playTime');
+    console.log('prePlayTime', prePlayTime);
+    // player.dispose();
+    // player = TCPlayer('player-container-id2', { // player-container-id 为播放器容器ID，必须与html中一致
+    //   autoplay: true,
+    //   // controlBar: {
+    //   //   currentTimeDisplay: false,
+    //   //   durationDisplay: false,
+    //   //   timeDivider: false,
+    //   // },
+    // });
+    
+    player.src(getUrl(+prePlayTime || 0));
+
+
+
+
+
+
+    // 精确调整重复播放ts分片导致的误差
+    // 这个视频2s一个分片，根据上次播放的时间prePlayTime，计算出要微调的时间
+
+    console.log('prePlayTime', prePlayTime);
+    console.log('+prePlayTime % 2', +prePlayTime % 2);
+    // player.currentTime(+prePlayTime % 2);
+    // 如果没有开启自动播放，需要手动调用play方法
+    // player.play();
+  }
+
+
+  function bindEvent() {
+    // 播放开始阶段
+    player.one('play', function() {
+      player.on('timeupdate', function() {
+        playTime = player.currentTime();
+        console.log('currentTime', playTime);
+      });
+    });
+
+    player.on('play', function() {
+      console.log('play');
+    });
+
+    player.on('seeking', function() {
+      console.log('seeking');
+    });
+
+    // 暂停
+    setTimeout(function() {
+      player.on('pause', function() {
+        console.log('pause');
+        breakPlayback();
+        player.one('play', function() {
+          recoverPlayback();
+        });
+      });
+    }, 2000);
+
+    // 播放过程中
+    // 在特定时机，执行自定义功能相关逻辑，比如弹窗问卷等
+    player.on('ended', function() {
+      reset();
+      console.log('end');
+    })
+
+    player.on('error', function(e) {
+      reset();
+      console.log('error: ', e);
+    });
+
+
+    // player.ready(function() {
+    //   player.tech_.hlsProvider.hls.on('hlsFragChanged', function(e) {
+    //     console.log('eeeee', e);
+    //   });
+    // });
+
+    // 页面关闭、应用切到后台等场景，如需要续播，执行类似的逻辑
+
+  }
+  
+  init();
+
+  // 模拟暂停执行自定义逻辑
+  document.getElementById('pause').addEventListener('click', function() {
+    breakPlayback();
+  });
+  document.getElementById('recover').addEventListener('click', function() {
+    recoverPlayback();
+  });
+
+  document.getElementById('reset').addEventListener('click', function() {
+
+    console.log('start time', new Date());
+    reset();
+    recoverPlayback();
+  });
+
+} catch (e) {
+  console.log('error: ', e.message);
+}
+</script>
+</body>
+</html>

@@ -112,8 +112,28 @@ const progressMarker = (() => {
     <Col>
       <Title>{t('进度条标记')}</Title>
       <List type="bullet">
+        <List.Item>
+          <Trans>
+            通过修改媒体文件属性接口对视频新增一组打点信息，参考 <a href="https://cloud.tencent.com/document/product/266/31762" target="_blank" rel="noreferrer">接口文档</a>。
+          </Trans>
+        </List.Item>
         <List.Item>{t('该功能仅支持桌面端浏览器。')}</List.Item>
         <List.Item>{t('在浏览器劫持视频播放的情况下，该功能无法使用。')}</List.Item>
+      </List>
+    </Col>
+  </Row>
+})();
+
+const barrage = (() => {
+  return <Row>
+    <Col>
+      <Title>{t('弹幕')}</Title>
+      <List type="bullet">
+        <List.Item>
+          <Trans>
+            弹幕列表需要在业务侧维护管理，前端可向业务后台请求弹幕列表，或采集客户端用户输入的弹幕信息，通过播放器来展示，可参考 <a href="https://www.npmjs.com/package/tcplayer-barrage-plugin" target="_blank" rel="noreferrer">文档</a>。
+          </Trans>
+        </List.Item>
       </List>
     </Col>
   </Row>
@@ -393,5 +413,6 @@ export const docs = {
   customUI,
   multi,
   language,
-  ghostWatermark
+  ghostWatermark,
+  barrage,
 } 

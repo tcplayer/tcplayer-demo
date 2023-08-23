@@ -1,6 +1,33 @@
 
 发布路径：
 
+
+发布场景：
+
+体验馆 
+experiencemode: none
+HashRouter
+language: zh
+
+体验馆国际站（暂无）
+experiencemode: none
+HashRouter
+language: en
+
+独立站点（域名访问）
+experiencemode: block
+BrowserRouter
+language: zh
+
+独立站点国际站（路径访问）
+experiencemode: block
+HashRouter
+language: en
+
+
+独立站
+tcplayer-1306264703 -> 根目录
+
 国内
 tcplayer-1306264703 -> experience-center
 

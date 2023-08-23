@@ -161,7 +161,25 @@
   "k_1xnkszg": "Error decoding the video",
   "k_1y09ps1": "You cannot select video quality on browsers that do not offer the corresponding API or do not support MSE. On those browsers, the player will not show video quality options.",
   "k_1ycm4vz": "Notes",
-  "k_1z0jw22": "You cannot add subtitles in the console on browsers that do not support MSE."
+  "k_1z0jw22": "You cannot add subtitles in the console on browsers that do not support MSE.",
+  "k_15yy6iv": "Playback control",
+  "k_159adlf": "Video security",
+  "k_13ajcyd": "Display effect",
+  "k_003r5c9": "Barrage",
+  "k_15w1p7t": "Ghost watermark",
+  "k_121j2ua": "The bullet chat list needs to be maintained and managed on the business side. The front end can request the bullet chat list from the business background, or collect the bullet chat information input by the client user, and display it through the player. Refer to the <1>Documentation<\/1>.",
+  "k_0orsgk0": "Ghost watermark is a form of dynamic watermark, which is more secure and concealed.",
+  "k_14t3s4i": "Add a set of dot information to the video by modifying the media file attribute interface, refer to the interface <1>document<\/1>.",
+  "k_003phiu": "Mirror",
+  "k_0ol564c": "Please select the video playback function to experience",
+  "k_1608cze": "Advertising stickers",
+  "k_0fclyqh": "Custom Prompt Text",
+  "k_0ynf2j0": "Player Size Settings",
+  "k_034p962": "When playing DASH adaptive bitrate files, the playback definition will adopt the automatic switching logic by default. At this time, the player will dynamically select the most suitable bitrate to play according to the current bandwidth.",
+  "k_0e545is": "Allows multiple player instances to be created on one page.",
+  "k_1dynwab": "Multiple languages ​​are supported.",
+  "k_1biltmy": "Adaptive stream playback",
+  "k_0f2e8jf": "Thumbnail preview"
 };  
 
 module.exports = { translation: translation };

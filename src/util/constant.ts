@@ -1,5 +1,57 @@
 import { t, Trans } from '@tencent/tea-app/lib/i18n';
 
+// 体验馆  https://rtcube.cloud.tencent.com/component/experience-center/index.html#/home
+// 体验馆预发布 https://rtcube.cloud.tencent.com/prerelease/component/experience-center/index.html#/home
+
+
+// 体验馆国际站 https://trtc.io
+// 体验馆国际站预发布 
+
+
+
+
+// 体验馆视频播放 https://tcplayer.vcube.tencent.com/experience-center/build/index.html
+// 体验馆视频播放预发布 https://tcplayer.vcube.tencent.com/experience-center/release/build/index.html
+
+// vod tcplayer.vcube.tencent.com
+// vod预发布 https://tcplayer.vcube.tencent.com/release/build/index.html
+
+// vod国际站 https://tcplayer.vcube.tencent.com/intl/index.html
+// vod国际站预发布 https://tcplayer.vcube.tencent.com/intl/release/build/index.html
+
+
+
+// experiencemode: none
+// HashRouter
+// language: zh
+
+// 体验馆国际站（暂无）
+// experiencemode: none
+// HashRouter
+// language: en
+
+// 独立站点（域名访问）
+// experiencemode: block
+// BrowserRouter
+// language: zh
+
+// 独立站点国际站（路径访问）
+// experiencemode: block
+// HashRouter
+// language: en
+
+// export const getConfigs = () => {
+//     const configs = {};
+//     const path = location.href;
+
+//     if (path.indexOf()) {
+
+//     }
+
+//     configs.
+
+// }
+
 export const typeMap = [
     { text: t('URL 播放'), value: 'playurl' },
     { text: t('FileID 播放'), value: 'playfileid' },
@@ -29,7 +81,7 @@ export const typeMap = [
 
 
 export const generatePlayerConfigs = (type, url?, fileID?, appID?, psign?) => {
-    const defaultConfigMap = ['qualityApi', 'dash', 'vttThumbnail', 'vttThumbnailSrc', 'subtitles', 'event', 'dynamicWatermark', 'key', 'poster', 'mirror', 'customError', 'sizeAdaptive', 'customUI']; 
+    const defaultConfigMap = ['qualityApi', 'dash', 'vttThumbnail', 'vttThumbnailSrc', 'subtitles', 'event', 'dynamicWatermark', 'key', 'poster', 'mirror', 'customError', 'sizeAdaptive', 'customUI', 'barrage']; 
 
     if (type === 'playurl') {
         playConfigs[type].sources = [url];
@@ -226,6 +278,13 @@ export const playConfigs = {
             statistic: true
           }
         }
+    },
+
+    barrage: {
+        containerId: 'player-container-id',
+        fileID: "387702307847129127",
+        appID: "1500006438",
+        psign: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcHBJZCI6MTUwMDAwNjQzOCwiZmlsZUlkIjoiMzg3NzAyMzA3ODQ3MTI5MTI3IiwiY3VycmVudFRpbWVTdGFtcCI6MTY2NzIxNjY1MywiY29udGVudEluZm8iOnsiYXVkaW9WaWRlb1R5cGUiOiJSYXdBZGFwdGl2ZSIsInJhd0FkYXB0aXZlRGVmaW5pdGlvbiI6MTB9LCJleHBpcmVUaW1lU3RhbXAiOjIyMDEwMTEyMDAsInVybEFjY2Vzc0luZm8iOnsiZG9tYWluIjoiMTUwMDAwNjQzOC52b2QyLm15cWNsb3VkLmNvbSIsInNjaGVtZSI6IkhUVFBTIn19.AYqjCMFQlo9nn6EMaF0Nol5vVq9miaoUqyvmFF62aSg',
     }
 
 }

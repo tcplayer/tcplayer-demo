@@ -4,8 +4,6 @@ import { checkSupport, IS_MOBILE, IS_IOS } from '../util/browser';
 import { t, Trans } from '@tencent/tea-app/lib/i18n';
 import { getUrlParameter } from '../util';
 
-
-
 const playTabs = [
   { id: "url", label: t("URL 播放") },
   { id: "fileid", label: t("FileID 播放") },
@@ -24,7 +22,6 @@ const sources = {
     appID: '1500009007',
   }
 }
-
 
 function PlayPanel (props) {
   const [type, setType] = useState(getUrlParameter('playmode') || props.type || 'url');

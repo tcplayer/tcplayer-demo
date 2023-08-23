@@ -31,6 +31,7 @@ import playlist from './tcplayer-vod-playlist.html';
 import customUI from './tcplayer-vod-custom-ui.html';
 import playurl from './tcplayer-vod-play-url.html';
 import playfileid from './tcplayer-vod-play-fileid.html';
+import barrage from './tcplayer-vod-barrage.html';
 
 export const source = {
   base,
@@ -62,6 +63,7 @@ export const source = {
   customUI,
   playurl,
   playfileid,
+  barrage,
   // logo,
   // masterPlayList,
   // imagePatch,

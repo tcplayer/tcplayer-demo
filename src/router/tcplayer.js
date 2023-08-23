@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import * as monaco from "monaco-editor/esm/vs/editor/editor.api";
 import PlayPanel from "../components/playPanel";
 import { t, Trans } from '@tencent/tea-app/lib/i18n';
-import { getUrlParameter } from '../util';
+import { getUrlParameter, loadScript } from '../util';
 import {
   Layout,
   NavMenu,
@@ -237,7 +237,6 @@ function App() {
 
       const configs = generatePlayerConfigs(value, url, fileID, appID, psign);
 
-      console.log('configs', configs);
       const playerInstanceArray = [];
       configs.forEach(element => {
         if (value === 'customUI') {
@@ -307,7 +306,7 @@ function App() {
             player.posterImage.show();
             player.posterImage.el_.style.width = '60%';
             player.posterImage.el_.style.height = '60%';
-            player.posterImage.el_.style.display = 'flex';
+            player.posterImage.el_.style.display = 'block';
           });
         
           player.on('playing', function() {
@@ -315,6 +314,28 @@ function App() {
           });
         }
 
+        if (value === 'barrage') {
+          loadScript('https://tcplayer.vcube.tencent.com/tcplayer-plugins/tcplayer-barrage-plugin.js', () => {
+            const tcplayerBarrage = new window.TcplayerBarragePlugin(player);
+              tcplayerBarrage.init();
+
+              // 场景一：加载弹幕列表，通常可配合后端通过接口加载
+              const timeLine = [{
+                "mode": 1,
+                "text":" Hello World",
+                "stime": 2000,
+                "size":  25,
+                "color": '#FFFFFF'
+              }, {"mode": 1,
+                "text": "Hello World",
+                "stime": 4000,
+                "size": 25,
+                "color": '#FFFFFF'
+              },];
+              tcplayerBarrage.load(timeLine);
+              tcplayerBarrage.start();
+            }); 
+        }
 
         setPlayerInstance(playerInstanceArray);
       });
@@ -339,7 +360,7 @@ function App() {
     }
   }
 
-  const experienceMode = 'none';
+  const experienceMode = 'block';
 
   if (IS_MOBILE) {
     return (
@@ -402,6 +423,7 @@ function App() {
                   { text: t("缩略图预览-云端生成文件"), value: "vttThumbnail" },
                   { text: t("缩略图预览-手动传入文件"), value: "vttThumbnailSrc"},
                   { text: t("字幕"), value: "subtitles" },
+                  { text: t("弹幕"), value: "barrage" },
                   { text: t("事件回调"), value: "event" },
                 ]}>
               </Segment>
@@ -540,8 +562,8 @@ function App() {
                     onChange={switchFunc}
                     rimless={true}
                     options={[
-                      {text: t('URL播放'), value: 'playurl'},
-                      {text: t('FileID播放'), value: 'playfileid'},
+                      {text: t('URL 播放'), value: 'playurl'},
+                      {text: t('FileID 播放'), value: 'playfileid'},
                       { text: t("自适应码流"), value: "qualityApi" },
                       { text: t("DASH 播放"), value: "dash" },
                     ]}>
@@ -560,6 +582,7 @@ function App() {
                       { text: t("缩略图预览-云端生成文件"), value: "vttThumbnail" },
                       { text: t("缩略图预览-手动传入文件"), value: "vttThumbnailSrc"},
                       { text: t("字幕"), value: "subtitles" },
+                      { text: t("弹幕"), value: "barrage" },
                       { text: t("事件回调"), value: "event" },
                     ]}>
                   </Segment>
@@ -574,7 +597,7 @@ function App() {
                     rimless={true}
                     options={[
                       { text: t("动态水印"), value: "dynamicWatermark" },
-                      { text: t("幽灵水印"), value: "ghostWatermark" },
+                      // { text: t("幽灵水印"), value: "ghostWatermark" },
                       { text: t("Key 防盗链"), value: "key" },
                     ]}>
                   </Segment>
@@ -589,6 +612,7 @@ function App() {
                     rimless={true}
                     options={[
                       { text: t("贴片广告"), value: "poster" },
+                      { text: t("进度条标记"), value: "progressMarker" },
                       { text: t("视频镜像"), value: "mirror" },
                       { text: t("提示文案"), value: "customError" },
                       { text: t("播放器尺寸"), value: "sizeAdaptive" },

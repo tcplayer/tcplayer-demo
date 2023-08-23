@@ -323,23 +323,19 @@
   left: 50%!important;
   top: 50%!important;
   transform: translate(-50%, -50%);
-  display: flex!important;
-  justify-content: space-between;
 }
 .ad-text-node {
+  display: inline-block;
   background: rgba(255, 255, 255, 0.2);
-  width: 44px;
   height: 23px;
   margin: 5px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  padding: 10px;
+  padding: 5px;
   font-size: 12px;
 }
 .ad-close-icon-node {
   width: 14px;
   height: 14px;
+  float: right;
   display: inline-block;
   margin-left: 10px;
   background-image: url(https://tcplayer-1306264703.cos.ap-nanjing.myqcloud.com/picture/icon-close.png);

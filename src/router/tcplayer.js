@@ -48,7 +48,6 @@ function clearIframe(id){
   };
 }} 
 
-// TODO: 国际站国内站分包之后，国际站默认启用英文，将不需要在此设置语言
 const modifyLanguage = (string) => {
   if (window.lang === 'en') {
     string = string.replace(`var player = TCPlayer("player-container-id", {`, `
@@ -340,7 +339,6 @@ function App() {
         setPlayerInstance(playerInstanceArray);
       });
     }
-
 
   }, [value]);
 
@@ -672,6 +670,7 @@ function App() {
                         </Copy>
                         <MonacoEditor
                           // className="tea-code-pre"
+                          minimap={false}
                           monaco={monaco}
                           height={360}
                           value={code}
